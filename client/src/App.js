@@ -21,7 +21,7 @@ function App() {
   
   return (
     <div className="App">
-      <Header user={user}/>
+      <Header user={user} setUser={setUser}/>
       <UserProfile userDisp={user}/>
       <SignupForm setUser={setUser}/>
     </div>
