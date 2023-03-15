@@ -10,5 +10,5 @@ class Bird < ApplicationRecord
     validates :neighborhood, presence: true
     validates :fun_fact, presence: true, length: {maximum: 100}
     validates :password, presence: true
-    validates :password_confirmation, presence: true
+    validates :password_confirmation, presence: true, length: {minimum: 5, maximum: 15}
 end

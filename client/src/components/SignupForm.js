@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 
-function SignupForm() {
+function SignupForm({setUser}) {
     const [username, setUsername] = useState("")
     const [species, setSpecies] = useState("")
     const [imgURL, setImgURL] = useState("")
@@ -31,7 +31,7 @@ function SignupForm() {
             body: JSON.stringify(newSignupObj)
         })
         .then(r => r.json())
-        .then(data => console.log(data))
+        .then(user => setUser(user))
         // .then((r) => {
         //     if (r.ok) {
         //         r.json()

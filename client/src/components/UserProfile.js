@@ -1,6 +1,6 @@
 import React from "react"
 
-function UserProfile() {
+function UserProfile({userDisp}) {
 
     return (
         <div className="user-info">
@@ -11,6 +11,8 @@ function UserProfile() {
             <h3>fun fact</h3>
             <h3>number of reviews</h3>
             <h3>EDIT BUTTON</h3>
+
+            {userDisp? <h3>yes user</h3> : <h3>no user</h3>}
         </div>
     )
 
