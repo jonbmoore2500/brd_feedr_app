@@ -22,7 +22,22 @@ function SignupForm() {
             password_confirmation: pWordConfirm
         }
         console.log(newSignupObj)
-
+        
+        fetch("/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newSignupObj)
+        })
+        .then(r => r.json())
+        .then(data => console.log(data))
+        // .then((r) => {
+        //     if (r.ok) {
+        //         r.json()
+        //         .then(bird => console.log(bird, "confirmed"))
+        //     }
+        // })
     }
 
     return (
