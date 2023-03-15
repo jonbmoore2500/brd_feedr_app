@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts "🌱 Seeding messages..."
+
+# Bird.create(username: "Charlie123", species: "Chickadee", neighborhood: "Uptown", img_url: "https://www.allaboutbirds.org/guide/assets/photo/302469081-480px.jpg", fun_fact: "Loves Mexican food", "")
+
+
+puts "✅ Done seeding!"
