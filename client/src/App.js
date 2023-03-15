@@ -1,4 +1,3 @@
-//import logo from './logo.svg';
 import React, {useState, useEffect} from "react"
 
 import './App.css';
@@ -8,16 +7,21 @@ import UserProfile from "./components/UserProfile.js"
 
 
 function App() {
+
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    console.log("hello useeffect")
+    fetch("/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user))
+      }
+    })
   }, [])
-  
+  // console.log(user)
   
   return (
     <div className="App">
-      <Header />
+      <Header user={user}/>
       <UserProfile userDisp={user}/>
       <SignupForm setUser={setUser}/>
     </div>

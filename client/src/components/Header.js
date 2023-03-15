@@ -1,10 +1,17 @@
 import React from "react"
+import NavBar from "./NavBar.js"
+import Logout from "./Logout.js"
 
-function Header() {
+function Header({user}) {
 
 return (
     <div className="App-header">
-       <h1>brd feedr</h1>
+        <div>
+            <h1>brd feedr</h1>
+            { user ? <Logout user={user}/> : null}
+            {/* move to right side of top bar */}
+        </div>
+       { user ? <NavBar /> : null }
     </div>
 
 )

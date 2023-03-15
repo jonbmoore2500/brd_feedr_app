@@ -10,6 +10,15 @@ class BirdsController < ApplicationController
         end
     end
 
+    def show
+        bird = Bird.find_by(id: session[:user_id])
+        if bird
+            render json: bird
+        else
+            render json: {error: "no user logged in"}, status: :unauthorized
+        end
+    end
+
     private
 
     def bird_params
