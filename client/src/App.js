@@ -4,7 +4,7 @@ import './App.css';
 import Header from "./components/Header.js"
 import SignupForm from './components/SignupForm';
 import UserProfile from "./components/UserProfile.js"
-
+import LoginForm from "./components/LoginForm.js"
 
 function App() {
 
@@ -22,8 +22,19 @@ function App() {
   return (
     <div className="App">
       <Header user={user} setUser={setUser}/>
-      <UserProfile userDisp={user}/>
-      <SignupForm setUser={setUser}/>
+      { user ? (
+        <>
+          <UserProfile userDisp={user}/>
+        </>
+        ) : (
+        <>
+          <SignupForm setUser={setUser}/>
+          <LoginForm setUser={setUser}/>
+        </> 
+      )}
+      
+      
+      
     </div>
   );
 }
