@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from "react"
+import {Switch, Route} from "react-router-dom"
 
 import './App.css';
 import Header from "./components/Header.js"
 import SignupForm from './components/SignupForm';
 import UserProfile from "./components/UserProfile.js"
 import LoginForm from "./components/LoginForm.js"
+import UserRevContainer from "./components/UserRevContainer";
+import FeedersContainer from "./components/FeedersContainer"
 
 function App() {
 
@@ -19,13 +22,25 @@ function App() {
   }, [])
   // console.log(user)
   
+  // TO DO - set up client side routing for Home, Reviews, Find a Feeder
+
+
   return (
     <div className="App">
       <Header user={user} setUser={setUser}/>
       { user ? (
-        <>
-          <UserProfile userDisp={user}/>
-        </>
+        <UserProfile userDisp={user}/>
+        // <Switch>
+        //   <Route exact path="/"> 
+        //     <UserProfile userDisp={user}/>
+        //   </Route>
+        //   <Route path="/view_reviews">
+        //     <UserRevContainer />
+        //   </Route>
+        //   <Route path="/find_feeder">
+        //     <FeedersContainer />
+        //   </Route>
+        // </Switch>
         ) : (
         <>
           <SignupForm setUser={setUser}/>

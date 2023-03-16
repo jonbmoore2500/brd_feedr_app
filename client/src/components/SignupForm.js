@@ -9,8 +9,12 @@ function SignupForm({setUser}) {
     const [pWord, setPWord] = useState("")
     const [pWordConfirm, setPWordConfirm] = useState("")
 
+    const [errors, setErrors] = useState([])
+
+
     function handleSubmitSignup(e) {
         e.preventDefault()
+        setErrors([])
         // console.log("hello")
         const newSignupObj = {
             username: username,
@@ -30,14 +34,13 @@ function SignupForm({setUser}) {
             },
             body: JSON.stringify(newSignupObj)
         })
-        .then(r => r.json())
-        .then(user => setUser(user))
-        // .then((r) => {
-        //     if (r.ok) {
-        //         r.json()
-        //         .then(bird => console.log(bird, "confirmed"))
-        //     }
-        // })
+        .then((r) => {
+            if (r.ok) {
+                r.json().then((user) => setUser(user))
+            } else {
+                r.json().then((err) => setErrors(err.errors))
+            }
+        })
     }
 
     return (
@@ -92,6 +95,16 @@ function SignupForm({setUser}) {
                     Sign up
                 </button>
             </form>
+            {errors.length > 0 ? (
+                <>
+                    {errors.map((err) => (
+                        <h4>{err}</h4>
+                    ))}
+                    
+                </>
+            ) : (
+                null
+            )}
         </div>
     )
 
