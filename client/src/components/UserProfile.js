@@ -1,10 +1,22 @@
 import React, {useState} from "react"
 import "../modal.css"
 
-function UserProfile({userDisp, homePage = false}) {
+function UserProfile({userDisp, homePage = false, updateUser}) {
 
     const [updateModal, setUpdateModal] = useState(false)
 
+    const [neighborhood, setNeighborhood] = useState(userDisp.neighborhood)
+    const [funFact, setFunFact] = useState(userDisp.fun_fact)
+    // add password change
+
+    function handleUpdateUser(e) {
+        e.preventDefault()
+        const updatedData = {
+            neighborhood: neighborhood,
+            fun_fact: funFact
+        }
+        updateUser(updatedData) 
+    }
 
     return (
         <div>
@@ -26,7 +38,21 @@ function UserProfile({userDisp, homePage = false}) {
                     <div onClick={() => setUpdateModal(false)} className="overlay"></div> 
                     <div className="modal-content">
                         <h3>modal content</h3>
-                        
+                        <form onSubmit={handleUpdateUser}>
+                            <input 
+                                onChange={(e) => setNeighborhood(e.target.value)}
+                                autoComplete="off"
+                                value={neighborhood}
+                            />
+                            {/* change neighborhood to drop down */}
+                            <input
+                                onChange={(e) => setFunFact(e.target.value)}
+                                autoComplete="off"
+                                value={funFact}
+                            />
+
+                        </form>
+                        <button onClick={() => setUpdateModal(false)}>Close</button>
                     </div>
                 </div>
             )}

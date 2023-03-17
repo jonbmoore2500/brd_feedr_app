@@ -19,6 +19,14 @@ class BirdsController < ApplicationController
         end
     end
 
+    # def update
+    #     bird = Bird.find_by(id: bird_params[:id])
+    #     bird.update(bird_params)
+    #     if bird
+            
+
+    # end
+
     private
 
     def bird_params

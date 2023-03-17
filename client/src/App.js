@@ -21,22 +21,35 @@ function App() {
     })
   }, [])
 
+  function handleUserUpdate(updateObj) {
+    // fetch(`/birds/${user.id}`, {
+    //   method: "PATCH",
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(updateObj)
+    // })
+    console.log("coming soon!", updateObj)
+
+  }
+
+
   return (
     <div className="App">
       <Header user={user} setUser={setUser}/>
       { user ? (
-        //<UserProfile userDisp={user} homePage={true}/>
-        <Switch>
-          <Route exact path="/"> 
-            <UserProfile userDisp={user}/>
-          </Route>
-          <Route path="/view_reviews">
-            <UserRevContainer />
-          </Route>
-          <Route path="/find_feeder">
-            <FeedersContainer />
-          </Route>
-        </Switch>
+        <UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
+        // <Switch>
+        //   <Route exact path="/"> 
+        //     <UserProfile userDisp={user}/>
+        //   </Route>
+        //   <Route path="/view_reviews">
+        //     <UserRevContainer />
+        //   </Route>
+        //   <Route path="/find_feeder">
+        //     <FeedersContainer />
+        //   </Route>
+        // </Switch>
         ) : (
         <>
           <SignupForm setUser={setUser}/>
