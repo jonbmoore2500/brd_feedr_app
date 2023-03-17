@@ -38,7 +38,9 @@ function App() {
     <div className="App">
       <Header user={user} setUser={setUser}/>
       { user ? (
-        <UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
+        //<UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
+        <UserRevContainer user={user}/>
+        
         // <Switch>
         //   <Route exact path="/"> 
         //     <UserProfile userDisp={user}/>
