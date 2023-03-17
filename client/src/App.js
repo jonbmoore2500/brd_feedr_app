@@ -25,18 +25,18 @@ function App() {
     <div className="App">
       <Header user={user} setUser={setUser}/>
       { user ? (
-        <UserProfile userDisp={user}/>
-        // <Switch>
-        //   <Route exact path="/"> 
-        //     <UserProfile userDisp={user}/>
-        //   </Route>
-        //   <Route path="/view_reviews">
-        //     <UserRevContainer />
-        //   </Route>
-        //   <Route path="/find_feeder">
-        //     <FeedersContainer />
-        //   </Route>
-        // </Switch>
+        //<UserProfile userDisp={user} homePage={true}/>
+        <Switch>
+          <Route exact path="/"> 
+            <UserProfile userDisp={user}/>
+          </Route>
+          <Route path="/view_reviews">
+            <UserRevContainer />
+          </Route>
+          <Route path="/find_feeder">
+            <FeedersContainer />
+          </Route>
+        </Switch>
         ) : (
         <>
           <SignupForm setUser={setUser}/>
