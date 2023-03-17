@@ -13,12 +13,17 @@ function App() {
 
   const [user, setUser] = useState(null)
 
+  const [feeders, setFeeders] = useState([])
+
   useEffect(() => {
     fetch("/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user))
       }
     })
+    fetch("/feeders")
+    .then(r => r.json())
+    .then(data => setFeeders(data))
   }, [])
 
   function handleUserUpdate(updateObj) {
@@ -39,8 +44,9 @@ function App() {
       <Header user={user} setUser={setUser}/>
       { user ? (
         //<UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
-        <UserRevContainer user={user}/>
-        
+        //<UserRevContainer user={user}/>
+        <FeedersContainer feedersArr={feeders}/>
+
         // <Switch>
         //   <Route exact path="/"> 
         //     <UserProfile userDisp={user}/>
