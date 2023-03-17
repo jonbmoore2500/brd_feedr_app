@@ -5,8 +5,11 @@ function LoginForm({setUser}) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
+    const [error, setError] = useState("")
+
     function handleLogin(e) {
         e.preventDefault()
+        setError("")
         const loginObj = {
             username: username,
             password: password
@@ -19,8 +22,13 @@ function LoginForm({setUser}) {
             },
             body: JSON.stringify(loginObj)
         })
-        .then(r => r.json())
-        .then(user => setUser(user))
+        .then((r) => {
+            if (r.ok) {
+                r.json().then(user => setUser(user))
+            } else {
+                r.json().then((err) => setError(err.error))
+            }
+        })
     }
 
     return(
@@ -43,6 +51,11 @@ function LoginForm({setUser}) {
                     Login
                 </button>
             </form>
+            {error ? (
+                <h4>{error}</h4>
+            ) : (
+                null 
+            )}
         </div>
     )
 

@@ -20,10 +20,6 @@ function App() {
       }
     })
   }, [])
-  // console.log(user)
-  
-  // TO DO - set up client side routing for Home, Reviews, Find a Feeder
-
 
   return (
     <div className="App">
@@ -47,9 +43,6 @@ function App() {
           <LoginForm setUser={setUser}/>
         </> 
       )}
-      
-      
-      
     </div>
   );
 }
