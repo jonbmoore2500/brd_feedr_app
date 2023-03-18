@@ -3,7 +3,7 @@ import React, {useState} from "react"
 import FeederCard from "./FeederCard"
 import FeederForm from "./FeederForm"
 
-function FeedersContainer({feedersArr}) {
+function FeedersContainer({feedersArr, userID}) {
     console.log(feedersArr)
     const [showForm, setShowForm] = useState(false)
     
@@ -21,7 +21,7 @@ function FeedersContainer({feedersArr}) {
                 null
             )}
             {dispArr.map((feeder) => (
-                <FeederCard feeder={feeder} key={feeder.id}/>
+                <FeederCard feeder={feeder} key={feeder.id} userID={userID}/>
             ))}
         </div>
     )

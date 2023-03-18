@@ -45,7 +45,7 @@ function App() {
       { user ? (
         //<UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
         //<UserRevContainer user={user}/>
-        <FeedersContainer feedersArr={feeders}/>
+        <FeedersContainer feedersArr={feeders} userID={user.id}/>
 
         // <Switch>
         //   <Route exact path="/"> 
