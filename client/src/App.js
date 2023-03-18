@@ -26,16 +26,8 @@ function App() {
     .then(data => setFeeders(data))
   }, [])
 
-  function handleUserUpdate(updateObj) {
-    // fetch(`/birds/${user.id}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(updateObj)
-    // })
-    console.log("coming soon!", updateObj)
-
+  function handleUserUpdate(updatedUser) {
+      setUser(updatedUser)
   }
 
 
@@ -43,9 +35,9 @@ function App() {
     <div className="App">
       <Header user={user} setUser={setUser}/>
       { user ? (
-        //<UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
+        <UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
         //<UserRevContainer user={user}/>
-        <FeedersContainer feedersArr={feeders} userID={user.id}/>
+        // <FeedersContainer feedersArr={feeders} userID={user.id}/>
 
         // <Switch>
         //   <Route exact path="/"> 

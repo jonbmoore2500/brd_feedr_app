@@ -4,6 +4,7 @@ import "../modal.css"
 function UserProfile({userDisp, homePage = false, updateUser}) {
 
     const [updateModal, setUpdateModal] = useState(false)
+    const [errors, setErrors] = useState([])
 
     const [neighborhood, setNeighborhood] = useState(userDisp.neighborhood)
     const [funFact, setFunFact] = useState(userDisp.fun_fact)
@@ -11,11 +12,30 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
 
     function handleUpdateUser(e) {
         e.preventDefault()
-        const updatedData = {
+        setErrors([])
+        const updatedUser = {
             neighborhood: neighborhood,
             fun_fact: funFact
         }
-        updateUser(updatedData) 
+        //console.log(userDisp.id, "user id", updatedData)
+        fetch(`/birds/${userDisp.id}`, {
+            method: "PATCH",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedUser)
+          })
+          .then((r) => {
+            if (r.ok) {
+                r.json().then((user) => updateUser(user)) 
+                setUpdateModal(false)
+            } else {
+                r.json().then((err) => setErrors(err.errors))
+            }
+          })
+          
+      
+         
     }
 
     return (
@@ -37,7 +57,7 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
                 <div className="modal">
                     <div onClick={() => setUpdateModal(false)} className="overlay"></div> 
                     <div className="modal-content">
-                        <h3>modal content</h3>
+                        <h3>Update your profile</h3>
                         <form onSubmit={handleUpdateUser}>
                             <input 
                                 onChange={(e) => setNeighborhood(e.target.value)}
@@ -50,7 +70,16 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
                                 autoComplete="off"
                                 value={funFact}
                             />
-
+                            {errors ? (
+                                errors.map((err) => (
+                                    <h4 key={err}>{err}</h4>
+                                ))
+                            ) : (
+                                null
+                            )}
+                            <button type="submit">
+                                Save changes
+                            </button>
                         </form>
                         <button onClick={() => setUpdateModal(false)}>Close</button>
                     </div>

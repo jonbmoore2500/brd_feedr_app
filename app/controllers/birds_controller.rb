@@ -1,4 +1,5 @@
 class BirdsController < ApplicationController
+    wrap_parameters format: []
 
     def create
         bird = Bird.create(bird_params)
@@ -19,17 +20,29 @@ class BirdsController < ApplicationController
         end
     end
 
-    # def update
-    #     bird = Bird.find_by(id: bird_params[:id])
-    #     bird.update!(bird_params)
-    #     if bird
-            
+    def update
+        bird = Bird.find_by(id: params[:id])
+        # byebug
+        bird.update(update_params)
+        if bird.valid?
 
-    # end
+            render json: bird, status: :created
+        else
+            render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
+        end
+    # rescue ActiveRecord::RecordInvalid => invalid
+    #     # byebug
+    #     render json: { errors: invalid.record.errors }, status: :unprocessable_entity
+    end
 
     private
 
     def bird_params
         params.permit(:username, :species, :img_url, :neighborhood, :fun_fact, :password, :password_confirmation)
     end
+
+    def update_params
+        params.permit(:id, :neighborhood, :fun_fact)
+    end
+
 end
