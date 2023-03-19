@@ -1,13 +1,62 @@
-import React from "react"
+import React, {useState} from "react"
 
 function EditRevForm({review, handleDelete, handleEdit}) {
 
+    const [newRating, setNewRating] = useState(review.rating)
+    const [newRevText, setNewRevText] = useState(review.text)
+    const [errors, setErrors] = useState([])
+    const [showModal, setShowModal] = useState(false)
 
+    function handleSubmitEdit(e) {
+        e.preventDefault()
+        const editedRevObj = {
+            rating: newRating,
+            text: newRevText
+        }
+        fetch(`/reviews/${review.id}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(editedRevObj)
+        })
+        .then((r) => {
+            if (r.ok) {
+                r.json().then((review) => handleEdit(review))
+            } else {
+                r.json().then((err) => setErrors(err.errors))
+            }
+        })
+    }
 
     return(
         <div>
-            <button >Edit</button>
+            <button onClick={() => setShowModal(true)}>Edit</button>
             <button onClick={() => handleDelete(review.id)}>Delete</button>
+            {showModal ? (
+                <div className="modal">
+                <div onClick={() => setShowModal(false)} className="overlay"></div> 
+                <div className="modal-content">
+                    <form onSubmit={handleSubmitEdit} >
+                        <input 
+                            onChange={(e) => setNewRating(e.target.value)}
+                            autoComplete="off"
+                            value={newRating}
+                        />
+                        <input 
+                            onChange={(e) => setNewRevText(e.target.value)}
+                            autoComplete="off"
+                            value={newRevText}
+                        />
+                        <button type="submit">Save Edits</button>
+                    </form>
+                    <button onClick={() => setShowModal(false)}>Close</button>
+                </div>
+            </div>
+            ) : (
+                null
+            )}
+            
         </div>
     )
 }

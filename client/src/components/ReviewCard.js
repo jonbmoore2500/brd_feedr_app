@@ -3,8 +3,8 @@ import EditRevForm from "./EditRevForm"
 
 function ReviewCard({review, signedIn = false}) {
 
-    function handleEdit() {
-        console.log("hello")
+    function handleEdit(newReview) {
+        console.log("hello", newReview)
     }
 
     function handleDelete(deleteID) {
