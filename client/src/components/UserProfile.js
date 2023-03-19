@@ -46,7 +46,12 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
                 <h3>Species: {userDisp.species}</h3>
                 <h3>Neighborhood: {userDisp.neighborhood}</h3>
                 <h3>Fun Fact: {userDisp.fun_fact}</h3>
-                <h3>Feeders Reviewed: </h3>
+                <h3>Feeders Reviewed: {userDisp.num_reviews}</h3>
+                {userDisp.num_reviews === 0 ? (
+                    <h4>Go to Find a Feeder to write your first review!</h4>
+                ) : (
+                    null
+                )}
                 {homePage ? (
                     <button onClick={() => setUpdateModal(true)}>Update User Information</button> 
                 ) : (
