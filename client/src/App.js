@@ -36,9 +36,9 @@ function App() {
       <Header user={user} setUser={setUser}/>
       { user ? (
         <>
-          {/* <UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/> */}
+          <UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
           <UserRevContainer user={user}/>
-          <FeedersContainer feedersArr={feeders} userID={user.id}/>
+          <FeedersContainer feedersArr={feeders} userID={user.id} userNeighbor={user.neighborhood}/>
         </>
         // <Switch>
         //   <Route exact path="/"> 
