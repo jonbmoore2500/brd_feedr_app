@@ -1,5 +1,6 @@
 class BirdsController < ApplicationController
     wrap_parameters format: []
+    before_action :authorize, only: [:update]
 
     def create
         bird = Bird.create(bird_params)
@@ -9,6 +10,11 @@ class BirdsController < ApplicationController
         else
             render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
         end
+    end
+
+    def index 
+        birds = Bird.all 
+        render json: birds
     end
 
     def show
@@ -44,5 +50,8 @@ class BirdsController < ApplicationController
     def update_params
         params.permit(:id, :neighborhood, :fun_fact)
     end
-
+    
+    def authorize
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+    end
 end

@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
     wrap_parameters format: []
+    before_action :authorize, only: [:update, :destroy]
 
     def create
         review = Review.create(review_params)
@@ -34,6 +35,10 @@ class ReviewsController < ApplicationController
 
     def update_params
         params.permit(:rating, :text, :id)
+    end
+
+    def authorize
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     end
 
 end
