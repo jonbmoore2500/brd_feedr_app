@@ -9,7 +9,7 @@ class FeedersController < ApplicationController
     def create
         feeder = Feeder.create(feeder_params)
         if feeder.valid?
-            render json: feeder, status: :created
+            render json: feeder, status: :created, include: [:average_rating, :num_reviews]
         else
             render json: {errors: feeder.errors.full_messages}, status: :unprocessable_entity
         end

@@ -44,8 +44,14 @@ function FeederCard({feeder, userID}) {
             ) : (
                 <h4>Refilled every {feeder.refill_freq} days</h4>
             )}
-            <h4>Average rating: ****</h4>
-            <h4>Number of reviews: ****</h4>
+            {feeder.average_rating ? (
+            <>
+                <h4>Average rating: {feeder.average_rating}</h4> 
+                <h4>Number of reviews: {feeder.num_reviews}</h4>
+            </>
+            ) : (
+            <h4>Be the first to review this feeder!</h4>
+            )}
             <button onClick={() => setShowReviewForm(true)}>
                 Review this feeder
             </button>
