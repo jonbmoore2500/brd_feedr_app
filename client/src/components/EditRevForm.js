@@ -9,6 +9,7 @@ function EditRevForm({review, handleDelete, handleEdit}) {
 
     function handleSubmitEdit(e) {
         e.preventDefault()
+        setErrors([])
         const editedRevObj = {
             rating: newRating,
             text: newRevText
@@ -48,6 +49,13 @@ function EditRevForm({review, handleDelete, handleEdit}) {
                             autoComplete="off"
                             value={newRevText}
                         />
+                        {errors.length > 0 ? (
+                            errors.map((err) => (
+                                <h4 key={err.index}>{err}</h4>
+                            ))
+                        ) : (
+                            null
+                        )}
                         <button type="submit">Save Edits</button>
                     </form>
                     <button onClick={() => setShowModal(false)}>Close</button>
