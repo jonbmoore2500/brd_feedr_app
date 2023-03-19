@@ -1,5 +1,5 @@
 import React from "react"
-// import NavBar from "./NavBar.js"
+import NavBar from "./NavBar.js"
 import Logout from "./Logout.js"
 
 function Header({user, setUser}) {
@@ -13,7 +13,7 @@ return (
             move NavBar to App, above routes for Home, Reviews, FF
             */}
         </div>
-       {/* { user ? <NavBar /> : null } */}
+       { user ? <NavBar /> : null }
     </div>
 
 )
