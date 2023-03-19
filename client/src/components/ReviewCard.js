@@ -1,6 +1,16 @@
 import React from "react"
+import EditRevForm from "./EditRevForm"
 
 function ReviewCard({review, signedIn = false}) {
+
+    function handleEdit() {
+        console.log("hello")
+    }
+
+    function handleDelete(deleteID) {
+        fetch(`/reviews/${deleteID}`, {method: "DELETE"})
+        .then(r => r.json()).then(data => console.log(data))
+    }
 
     return(
         <div>
@@ -8,10 +18,7 @@ function ReviewCard({review, signedIn = false}) {
             <h3>Rating: {review.rating}</h3>
             <h3>Review: {review.text}</h3>
             {signedIn ? (
-                <div>
-                    <button >Edit</button>
-                    <button >Delete</button>
-                </div>
+                <EditRevForm review={review} handleDelete={handleDelete} handleEdit={handleEdit}/>
             ) : (
                 null
             )}
