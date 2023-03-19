@@ -26,10 +26,18 @@ function App() {
     .then(data => setFeeders(data))
   }, [])
 
-  function handleUserUpdate(updatedUser) {
+  function handleUserUpdate(newUser) {
+    let updatedUser = {
+      ...user,
+      neighborhood: newUser.neighborhood,
+      fun_fact: newUser.fun_fact
+    }
     setUser(updatedUser)
   }
 
+  function handleRevEdit(updatedRev) {
+    
+  }
   // function renderFeeder(newFeeder) {
   //   //const moreFeeders = [...feeders, newFeeder]
   //   //console.log('orioginal', feeders, "extra", newFeeder)
@@ -46,7 +54,7 @@ function App() {
             <UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
           </Route>
           <Route path="/view_reviews">
-            <UserRevContainer user={user}/>
+            <UserRevContainer user={user} handleEdit={handleRevEdit}/>
           </Route>
           <Route path="/find_feeder">
             <FeedersContainer feedersArr={feeders} userID={user.id} userNeighbor={user.neighborhood}/>

@@ -1,11 +1,9 @@
 import React from "react"
 import EditRevForm from "./EditRevForm"
 
-function ReviewCard({review, signedIn = false}) {
+function ReviewCard({review, signedIn = false}, handleEdit) {
 
-    function handleEdit(newReview) {
-        console.log("hello", newReview)
-    }
+    
 
     function handleDelete(deleteID) {
         fetch(`/reviews/${deleteID}`, {method: "DELETE"})

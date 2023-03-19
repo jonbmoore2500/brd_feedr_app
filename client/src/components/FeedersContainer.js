@@ -43,17 +43,17 @@ function FeedersContainer({feedersArr, userID, userNeighbor}) {
             }
             return 0;
             })
-            // sorts alphabetically by neighborhood, want userNeighbor first
+            //sorts alphabetically by neighborhood, want userNeighbor first
+        } else if (sortType === "ratingzeta") {
+            newFeeders = newFeeders.sort(function (a, b) {
+                return (a.average_rating - b.average_rating)
+            })
+        } else {
+            newFeeders = newFeeders.sort(function (a, b) {
+                return (b.average_rating - a.average_rating)
+            })
         } 
-        // else if (sortType == "ratingalpha") {
-        //     newFeeders = newFeeders.sort(function (a, b) {
-        //         return a.rating - b.rating
-        //     })
-        // } else {
-        //     newFeeders = newFeeders.sort(function (a, b) {
-        //         return b.rating - a.rating
-        //     })
-        // } need to add average rating method
+        // need to handle null ratings
         setDispArr(newFeeders)
       // how to do with switch statement? couldn't get to work
     }
