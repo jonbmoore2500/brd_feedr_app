@@ -35,10 +35,11 @@ function App() {
     <div className="App">
       <Header user={user} setUser={setUser}/>
       { user ? (
-        <UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
-        //<UserRevContainer user={user}/>
-        // <FeedersContainer feedersArr={feeders} userID={user.id}/>
-
+        <>
+          {/* <UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/> */}
+          <UserRevContainer user={user}/>
+          <FeedersContainer feedersArr={feeders} userID={user.id}/>
+        </>
         // <Switch>
         //   <Route exact path="/"> 
         //     <UserProfile userDisp={user}/>

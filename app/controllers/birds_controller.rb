@@ -14,7 +14,7 @@ class BirdsController < ApplicationController
     def show
         bird = Bird.find_by(id: session[:user_id])
         if bird
-            render json: bird
+            render json: bird, include: ['reviews', 'reviews.feeder']
         else
             render json: {error: "no user logged in"}, status: :unauthorized
         end
