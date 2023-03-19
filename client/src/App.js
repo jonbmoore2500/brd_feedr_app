@@ -27,8 +27,14 @@ function App() {
   }, [])
 
   function handleUserUpdate(updatedUser) {
-      setUser(updatedUser)
+    setUser(updatedUser)
   }
+
+  // function renderFeeder(newFeeder) {
+  //   //const moreFeeders = [...feeders, newFeeder]
+  //   //console.log('orioginal', feeders, "extra", newFeeder)
+  //   setFeeders([...feeders, newFeeder])
+  // }
 
 
   return (
@@ -38,7 +44,9 @@ function App() {
         <>
           <UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
           <UserRevContainer user={user}/>
-          <FeedersContainer feedersArr={feeders} userID={user.id} userNeighbor={user.neighborhood}/>
+          <FeedersContainer feedersArr={feeders} 
+          // handleAppRender={renderFeeder}
+           userID={user.id} userNeighbor={user.neighborhood}/>
         </>
         // <Switch>
         //   <Route exact path="/"> 

@@ -31,8 +31,7 @@ class BirdsController < ApplicationController
         # byebug
         bird.update(update_params)
         if bird.valid?
-
-            render json: bird, status: :created
+            render json: bird, status: :created, include: ['reviews', 'reviews.feeder']
         else
             render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
         end

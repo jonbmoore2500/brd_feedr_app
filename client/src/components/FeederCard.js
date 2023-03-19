@@ -34,15 +34,16 @@ function FeederCard({feeder, userID}) {
             }
         })
     }
-        // if validations pass, close modal
-
-        // if not, display errors
 
     return(
         <div>
             <h2>{feeder.name}</h2>
             <h4>Neighborhood: {feeder.neighborhood}</h4>
-            <h4>Refilled every {feeder.refill_freq} days</h4>
+            {feeder.refill_freq === 1 ? (
+                <h4>Refilled every day</h4>
+            ) : (
+                <h4>Refilled every {feeder.refill_freq} days</h4>
+            )}
             <h4>Average rating: ****</h4>
             <h4>Number of reviews: ****</h4>
             <button onClick={() => setShowReviewForm(true)}>

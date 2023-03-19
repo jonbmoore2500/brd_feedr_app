@@ -1,10 +1,11 @@
 import React, {useState} from "react"
 
-function FeederForm({showForm}) {
+function FeederForm({showForm, renderFeeder}) {
 
     const [feederName, setFeederName] = useState("")
     const [feederNeighborhood, setFeederNeighborhood] = useState("")
-    const [feederFreq, setFeederFreq] = useState("")
+    const [feederFreq, setFeederFreq] = useState(0)
+    const [errors, setErrors] = useState([])
     
 
     function handleFeederSubmit(e) {
@@ -12,12 +13,28 @@ function FeederForm({showForm}) {
         const newFeederObj = {
             name: feederName,
             neighborhood: feederNeighborhood,
-            refill_freq: feederFreq
+            refill_freq: parseInt(feederFreq)
         }
-        console.log(newFeederObj)
+        fetch("/feeders", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newFeederObj)
+        })
+        .then((r) => {
+            if (r.ok) {
+              r.json().then((feederData) => {
+                console.log(feederData)
+                renderFeeder(feederData)
+                
+                showForm(false)
+              })
+            } else {
+                r.json().then((err) => setErrors(err.errors))
+            }
+        })
     }
-
-
 
     return(
         <div>
@@ -30,7 +47,7 @@ function FeederForm({showForm}) {
                     placeholder="Name"
                 />
                 <input 
-                    onChange={(e) => setFeederNeighborhood(e.target.value)} 
+                    onChange={(e) => setFeederNeighborhood(e.target.value)}                     
                     autoComplete="off"
                     value={feederNeighborhood} 
                     placeholder="Neighborhood"
