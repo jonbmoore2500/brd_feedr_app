@@ -10,7 +10,6 @@ function FeedersContainer({feedersArr, userID, userNeighbor}) {
     const [dispArr, setDispArr] = useState(feedersArr)
 
     function handleSort(sortType) {
-        //console.log(sortType, dispArr[0])
         let newFeeders = [...dispArr]
         // could be wildly streamlined, example namezeta could use same filter but reverses after
         if (sortType === "namealpha") {
@@ -34,16 +33,17 @@ function FeedersContainer({feedersArr, userID, userNeighbor}) {
             return 0;
             })
         } else if (sortType === "neighbor") {
-            newFeeders = newFeeders.sort(function (a, b) {
-            if (a.neighborhood < b.neighborhood) {
-                return -1;
-            } 
-            if (a.neighborhood > b.neighborhood) {
-                return 1;
-            }
-            return 0;
-            })
-            //sorts alphabetically by neighborhood, want userNeighbor first
+            let homeFeeders = newFeeders.filter(feeder => feeder.neighborhood === userNeighbor)
+            let otherFeeders = newFeeders.filter(feeder => feeder.neighborhood !== userNeighbor)
+            newFeeders = [...homeFeeders, ...otherFeeders.sort(function (a, b) {
+                if (a.neighborhood < b.neighborhood) {
+                    return -1;
+                }
+                if (a.neighborhood > b.neighborhood) {
+                    return 1;
+                }
+                return 0;
+            })]
         } else if (sortType === "ratingzeta") {
             newFeeders = newFeeders.sort(function (a, b) {
                 return (a.average_rating - b.average_rating)
@@ -53,7 +53,6 @@ function FeedersContainer({feedersArr, userID, userNeighbor}) {
                 return (b.average_rating - a.average_rating)
             })
         } 
-        // need to handle null ratings
         setDispArr(newFeeders)
       // how to do with switch statement? couldn't get to work
     }
