@@ -27,7 +27,6 @@ function FeederForm({showForm, renderFeeder}) {
               r.json().then((feederData) => {
                 console.log(feederData)
                 renderFeeder(feederData)
-                
                 showForm(false)
               })
             } else {

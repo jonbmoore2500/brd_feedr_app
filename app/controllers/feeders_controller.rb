@@ -3,7 +3,7 @@ class FeedersController < ApplicationController
     
     def index
         feeders = Feeder.all
-        render json: feeders 
+        render json: feeders, include: [:average_rating, :num_reviews]
     end
 
     def create

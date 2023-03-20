@@ -12,7 +12,6 @@ import FeedersContainer from "./components/FeedersContainer"
 function App() {
 
   const [user, setUser] = useState(null)
-
   const [feeders, setFeeders] = useState([])
 
   useEffect(() => {
@@ -36,13 +35,14 @@ function App() {
   }
 
   function handleRevEdit(updatedRev) {
-    
+
   }
-  // function renderFeeder(newFeeder) {
-  //   //const moreFeeders = [...feeders, newFeeder]
-  //   //console.log('orioginal', feeders, "extra", newFeeder)
-  //   setFeeders([...feeders, newFeeder])
-  // }
+
+  function renderFeeder(newFeeder) {
+    const moreFeeders = [newFeeder, ...feeders]
+    //console.log('orioginal', feeders, "extra", newFeeder)
+    setFeeders(moreFeeders)
+  }
 
 
   return (
@@ -51,13 +51,25 @@ function App() {
       { user ? (
         <Switch>
           <Route exact path="/"> 
-            <UserProfile userDisp={user} homePage={true} updateUser={handleUserUpdate}/>
+            <UserProfile 
+              userDisp={user} 
+              homePage={true} 
+              updateUser={handleUserUpdate}
+            />
           </Route>
           <Route path="/view_reviews">
-            <UserRevContainer user={user} handleEdit={handleRevEdit}/>
+            <UserRevContainer 
+              user={user} 
+              handleEdit={handleRevEdit}
+            />
           </Route>
           <Route path="/find_feeder">
-            <FeedersContainer feedersArr={feeders} userID={user.id} userNeighbor={user.neighborhood}/>
+            <FeedersContainer 
+              feedersArr={feeders} 
+              userID={user.id} 
+              userNeighbor={user.neighborhood} 
+              renderFeeder={renderFeeder}
+            />
           </Route>
         </Switch>
         ) : (
