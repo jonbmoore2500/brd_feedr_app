@@ -35,7 +35,17 @@ function App() {
   }
 
   function handleRevEdit(updatedRev) {
+    let userRevs = user.reviews.forEach((rev) => {
+      if (rev.id === updatedRev.id) {
+        rev = updatedRev
+      }
+    })
 
+    let updatedUser = {
+      ...user,
+      reviews: [userRevs]
+    }
+    setUser(updatedUser)
   }
 
   function renderFeeder(newFeeder) {

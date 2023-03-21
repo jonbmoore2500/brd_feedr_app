@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import {Card} from "semantic-ui-react"
 
 function FeederCard({feeder, userID}) {
 
@@ -36,25 +37,27 @@ function FeederCard({feeder, userID}) {
     }
 
     return(
-        <div>
-            <h2>{feeder.name}</h2>
-            <h4>Neighborhood: {feeder.neighborhood}</h4>
-            {feeder.refill_freq === 1 ? (
-                <h4>Refilled every day</h4>
-            ) : (
-                <h4>Refilled every {feeder.refill_freq} days</h4>
-            )}
-            {feeder.average_rating > 0 ? (
-            <>
-                <h4>Average rating: {feeder.average_rating}</h4> 
-                <h4>Number of reviews: {feeder.num_reviews}</h4>
-            </>
-            ) : (
-            <h4>Be the first to review this feeder!</h4>
-            )}
-            <button onClick={() => setShowReviewForm(true)}>
-                Review this feeder
-            </button>
+        <Card className="feeder_card">
+            {/* <Card> */}
+                <h2>{feeder.name}</h2>
+                <h4>Neighborhood: {feeder.neighborhood}</h4>
+                {feeder.refill_freq === 1 ? (
+                    <h4>Refilled every day</h4>
+                ) : (
+                    <h4>Refilled every {feeder.refill_freq} days</h4>
+                )}
+                {feeder.average_rating > 0 ? (
+                <>
+                    <h4>Average rating: {feeder.average_rating}</h4> 
+                    <h4>Number of reviews: {feeder.num_reviews}</h4>
+                </>
+                ) : (
+                <h4>Be the first to review this feeder!</h4>
+                )}
+                <button onClick={() => setShowReviewForm(true)}>
+                    Review this feeder
+                </button>
+            {/* </Card> */}
 
             {showReviewForm && (
                 <div className="modal">
@@ -92,7 +95,7 @@ function FeederCard({feeder, userID}) {
                     </div>
                 </div>
             )}
-        </div>
+        </Card>
     )
 
 }

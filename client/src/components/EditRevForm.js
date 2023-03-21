@@ -7,6 +7,8 @@ function EditRevForm({review, handleDelete, handleEdit}) {
     const [errors, setErrors] = useState([])
     const [showModal, setShowModal] = useState(false)
 
+
+    
     function handleSubmitEdit(e) {
         e.preventDefault()
         setErrors([])
@@ -24,6 +26,7 @@ function EditRevForm({review, handleDelete, handleEdit}) {
         .then((r) => {
             if (r.ok) {
                 r.json().then((review) => handleEdit(review))
+                // why does it say handleEdit isn't a function?
             } else {
                 r.json().then((err) => setErrors(err.errors))
             }

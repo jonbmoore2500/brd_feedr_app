@@ -39,6 +39,7 @@ class ReviewsController < ApplicationController
 
     def authorize
         return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+        # session[:user_id] == params[:bird_id]
     end
 
 end

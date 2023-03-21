@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import {Card, Container} from "semantic-ui-react"
 
 import FeederCard from "./FeederCard"
 import FeederForm from "./FeederForm"
@@ -66,7 +67,7 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder}) {
     // }
 
     return(
-        <div>
+        <Container>
             <h3>See all available feeders</h3>
             <button onClick={() => setShowForm(true)}>Add a new Feeder</button>
             {showForm ? (
@@ -75,10 +76,14 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder}) {
                 null
             )}
             <FeederSortMenu handleSort ={handleSort}/>
-            {dispArr.map((feeder) => (
-                <FeederCard feeder={feeder} key={feeder.id} userID={userID}/>
-            ))}
-        </div>
+            <Card.Group itemsPerRow={3}>
+                {dispArr.map((feeder) => (
+                    // <Card key={feeder.name}>
+                        <FeederCard feeder={feeder} key={feeder.id} userID={userID}/>
+                    // </Card>
+                ))}
+            </Card.Group>
+        </Container>
     )
 
 }

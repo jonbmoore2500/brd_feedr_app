@@ -12,7 +12,7 @@ function Logout({user, setUser}) {
     }
     
     return(
-        <div>
+        <div id="logout">
             <h3>{user.username}</h3>
             {/* add mini picture */}
             <button onClick={handleLogout}>Logout</button>
