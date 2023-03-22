@@ -57,7 +57,7 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder}) {
             <h3>See all available feeders</h3>
             <button onClick={() => setShowForm(true)}>Add a new Feeder</button>
             {showForm ? (
-                <FeederForm showForm={setShowForm} />
+                <FeederForm showForm={setShowForm} renderFeeder={renderFeeder}/>
             ) : (
                 null
             )}

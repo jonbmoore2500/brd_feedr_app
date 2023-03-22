@@ -5,7 +5,6 @@ function FeederSortMenu({currentSort, handleSort}) {
 
     function handleSortSubmit(e) {
         e.preventDefault()
-        // console.log(sortType)
         handleSort(sortType)
     }
 

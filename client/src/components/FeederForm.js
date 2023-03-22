@@ -25,7 +25,7 @@ function FeederForm({showForm, renderFeeder}) {
         .then((r) => {
             if (r.ok) {
               r.json().then((feederData) => {
-                console.log(feederData)
+                // console.log(feederData)
                 renderFeeder(feederData)
                 showForm(false)
               })
@@ -61,6 +61,13 @@ function FeederForm({showForm, renderFeeder}) {
                     Save this feeder?
                 </button>
             </form>
+            { errors.length > 0 ? (
+                errors.map((err) => (
+                    <h4 key={err.index}>{err}</h4>
+                ))
+            ) : (
+                null
+            )}
             <button onClick={() => showForm(false)}>
                 Close
             </button>

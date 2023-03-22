@@ -40,7 +40,6 @@ function App() {
         rev = updatedRev
       }
     })
-
     let updatedUser = {
       ...user,
       reviews: [userRevs]
@@ -50,7 +49,6 @@ function App() {
 
   function renderFeeder(newFeeder) {
     const moreFeeders = [newFeeder, ...feeders]
-    //console.log('orioginal', feeders, "extra", newFeeder)
     setFeeders(moreFeeders)
   }
 
