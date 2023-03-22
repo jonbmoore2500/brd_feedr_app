@@ -1,6 +1,5 @@
 class ReviewsController < ApplicationController
     wrap_parameters format: []
-    before_action :authorize, only: [:update, :destroy]
 
     def create
         review = Review.create(review_params)
@@ -13,18 +12,26 @@ class ReviewsController < ApplicationController
 
     def update
         review = Review.find_by(id: params[:id])
-        review.update(update_params)
-        if review.valid?
-            render json: review, status: :created
+        if review.bird_id == session[:user_id]
+            review.update(update_params)
+            if review.valid?
+                render json: review, status: :created
+            else
+                render json: {errors: review.errors.full_messages}, status: :unprocessable_entity
+            end
         else
-            render json: {errors: review.errors.full_messages}, status: :unprocessable_entity
+            render json: { error: "Not authorized" }, status: :unauthorized 
         end
     end
 
     def destroy
         review = Review.find_by(id: params[:id])
-        render json: review
-        review.destroy
+        if review.bird_id == session[:user_id]
+            review.destroy
+            render json: {status: "deleted"}
+        else
+            render json: { error: "Not authorized" }, status: :unauthorized
+        end
     end
 
     private
@@ -35,11 +42,6 @@ class ReviewsController < ApplicationController
 
     def update_params
         params.permit(:rating, :text, :id)
-    end
-
-    def authorize
-        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
-        # session[:user_id] == params[:bird_id]
     end
 
 end

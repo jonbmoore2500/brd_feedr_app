@@ -1,10 +1,11 @@
 import React, {useState} from "react"
 
-function FeederSortMenu({handleSort}) {
-    const [sortType, setSortType] = useState("namealpha")
+function FeederSortMenu({currentSort, handleSort}) {
+    const [sortType, setSortType] = useState(currentSort)
 
     function handleSortSubmit(e) {
         e.preventDefault()
+        // console.log(sortType)
         handleSort(sortType)
     }
 
