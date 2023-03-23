@@ -5,24 +5,26 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-puts "🌱 Seeding messages..."
+puts "🌱 Seeding brd_feedr tables..."
 
 neighborhoods = ["Uptown", "Edgewater", "Ravenswood", "The Loop", "Hyde Park", "Rogers Park", "Lakeview", "Kenwood", "Bronzeville"]
+species = ['American Goldfinch', 'Chickadee', 'Blue Jay', 'Piping Plover', 'Great Blue Heron', 'Northern Cardinal', 'Osprey', 'Peregrine Falcon', 'Raven', 'Woodpecker']
+
 
 Bird.create(
-    username: "Charlie123", species: "Chickadee", neighborhood: "Uptown", img_url: "https://www.allaboutbirds.org/guide/assets/photo/302469081-480px.jpg", 
+    username: "Charlie123", species: species[1], neighborhood: "Uptown", img_url: "https://www.allaboutbirds.org/guide/assets/photo/302469081-480px.jpg", 
     fun_fact: "Loves Mexican food", password: "Testing", password_confirmation: "Testing"
 )
 Bird.create(
-    username: "Hypebeast", species: "Piping Plover", neighborhood: "Edgewater", img_url: "", 
+    username: "Hypebeast", species: species[3], neighborhood: "Edgewater", img_url: "", 
     fun_fact: "Swagged out", password: "Testing", password_confirmation: "Testing"
 )
 Bird.create(
-    username: "Billiam", species: "Eagle", neighborhood: "The Loop", img_url: "https://www.allaboutbirds.org/guide/assets/photo/302469081-480px.jpg", 
+    username: "Billiam", species: species[5], neighborhood: "The Loop", img_url: "https://www.allaboutbirds.org/guide/assets/photo/302469081-480px.jpg", 
     fun_fact: "Hates birdseed", password: "Testing", password_confirmation: "Testing"
 )
 Bird.create(
-    username: "RogerRoger", species: "Raven", neighborhood: "Ravenswood", img_url: "https://www.allaboutbirds.org/guide/assets/photo/302469081-480px.jpg", 
+    username: "RogerRoger", species: species[8], neighborhood: "Ravenswood", img_url: "https://www.allaboutbirds.org/guide/assets/photo/302469081-480px.jpg", 
     fun_fact: "Chose his neighborhood for a reason", password: "Testing", password_confirmation: "Testing"
 )
 birds = Bird.all 

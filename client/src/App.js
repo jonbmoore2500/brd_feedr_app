@@ -76,7 +76,7 @@ function App() {
               feedersArr={feeders} 
               userID={user.id} 
               userNeighbor={user.neighborhood} 
-              renderFeeder={renderFeeder}
+              renderFeederApp={renderFeeder}
             />
           </Route>
         </Switch>

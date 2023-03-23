@@ -6,7 +6,8 @@ function FeederForm({showForm, renderFeeder}) {
     const [feederNeighborhood, setFeederNeighborhood] = useState("")
     const [feederFreq, setFeederFreq] = useState(0)
     const [errors, setErrors] = useState([])
-    
+    const neighborhoods = ["Uptown", "Edgewater", "Ravenswood", "The Loop", "Hyde Park", "Rogers Park", "Lakeview", "Kenwood", "Bronzeville"]
+
 
     function handleFeederSubmit(e) {
         e.preventDefault()
@@ -45,12 +46,17 @@ function FeederForm({showForm, renderFeeder}) {
                     value={feederName} 
                     placeholder="Name"
                 />
-                <input 
+                {/* <input 
                     onChange={(e) => setFeederNeighborhood(e.target.value)}                     
                     autoComplete="off"
                     value={feederNeighborhood} 
                     placeholder="Neighborhood"
-                />
+                /> */}
+                <select onChange={(e) => setFeederNeighborhood(e.target.value)}>
+                    {neighborhoods.map((neighbor) => (
+                        <option key={neighbor} value={neighbor}>{neighbor}</option>
+                    ))}
+                </select>
                 <input 
                     onChange={(e) => setFeederFreq(e.target.value)} 
                     autoComplete="off"

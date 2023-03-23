@@ -11,6 +11,7 @@ function SignupForm({setUser}) {
 
     const [errors, setErrors] = useState([])
 
+    const neighborhoods = ["Uptown", "Edgewater", "Ravenswood", "The Loop", "Hyde Park", "Rogers Park", "Lakeview", "Kenwood", "Bronzeville"]
 
     function handleSubmitSignup(e) {
         e.preventDefault()
@@ -66,13 +67,18 @@ function SignupForm({setUser}) {
                     value={imgURL} 
                     placeholder="Enter a profile pic URL"
                 /> 
-                <input 
+                {/* <input 
                     onChange={(e) => setNeighborhood(e.target.value)} 
                     autoComplete="off"
                     value={neighborhood} 
                     placeholder="What neighborhood do you live in?"
-                />
+                /> */}
                 {/* will change neighborhood to dropdown */}
+                <select onChange={(e) => setNeighborhood(e.target.value)}>
+                    {neighborhoods.map((neighbor) => (
+                        <option key={neighbor} value={neighbor}>{neighbor}</option>
+                    ))}
+                </select>
                 <input 
                     onChange={(e) => setFunFact(e.target.value)} 
                     autoComplete="off"

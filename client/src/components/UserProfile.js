@@ -9,6 +9,9 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
     const [neighborhood, setNeighborhood] = useState(userDisp.neighborhood)
     const [funFact, setFunFact] = useState(userDisp.fun_fact)
     // add password change
+    const neighborhoods = ["Uptown", "Edgewater", "Ravenswood", "The Loop", "Hyde Park", "Rogers Park", "Lakeview", "Kenwood", "Bronzeville"]
+
+    
 
     function handleUpdateUser(e) {
         e.preventDefault()
@@ -64,12 +67,17 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
                     <div className="modal-content">
                         <h3>Update your profile</h3>
                         <form onSubmit={handleUpdateUser}>
-                            <input 
+                            {/* <input 
                                 onChange={(e) => setNeighborhood(e.target.value)}
                                 autoComplete="off"
                                 value={neighborhood}
-                            />
+                            /> */}
                             {/* change neighborhood to drop down */}
+                            <select onChange={(e) => setNeighborhood(e.target.value)}>
+                                {neighborhoods.map((neighbor) => (
+                                    <option key={neighbor} value={neighbor}>{neighbor}</option>
+                                ))}
+                            </select>
                             <input
                                 onChange={(e) => setFunFact(e.target.value)}
                                 autoComplete="off"

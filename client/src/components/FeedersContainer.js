@@ -5,13 +5,19 @@ import FeederCard from "./FeederCard"
 import FeederForm from "./FeederForm"
 import FeederSortMenu from "./FeederSortMenu"
 
-function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder}) {
-    console.log(feedersArr, "after adding feeder")
+function FeedersContainer({feedersArr, userID, userNeighbor, renderFeederApp}) {
+    
     const [showForm, setShowForm] = useState(false)
     const [sortType, setSortType] = useState("namealpha")
+    // const [newestFeeder, setNewestFeeder] = useState({})
 
     function handleSortChange(newSort) {
         setSortType(newSort)
+    }
+
+    function renderFeeder(newFeeder) {
+        // setNewestFeeder(newFeeder)
+        renderFeederApp(newFeeder)
     }
 
     function handleSort(sortType) {
@@ -47,6 +53,11 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder}) {
                 return (b.average_rating - a.average_rating)
             })
         } 
+        // if (newestFeeder.hasOwnProperty('name')) {
+        //     console.log("passes test")
+        //     newFeeders = [newestFeeder, ...newFeeders]
+        //     // setNewestFeeder({})
+        // }
         return newFeeders
     }
 
