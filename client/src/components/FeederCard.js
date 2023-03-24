@@ -1,40 +1,11 @@
 import React, {useState} from "react"
 import {Card} from "semantic-ui-react"
+import RevForm from "./RevForm"
 
-function FeederCard({feeder, userID}) {
+function FeederCard({feeder, userID, updateUserRevs}) {
 
     const [showReviewForm, setShowReviewForm] = useState(false)
-    const [newRating, setNewRating] = useState("")
-    const [newRevText, setNewRevText] = useState("")
-    const [errors, setErrors] = useState([])
-    
-    function handleRevSubmit(e) {
-        e.preventDefault()
-        // fetch POST review
-        setErrors([])
-        let newReviewObj = {
-            bird_id: userID,
-            feeder_id: feeder.id,
-            rating: newRating,
-            text: newRevText
-        }
-
-        fetch("/reviews", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newReviewObj)
-        })
-        .then((r) => {
-            if (r.ok) {
-                r.json().then((review) => console.log(review, "successful review"))
-                setShowReviewForm(false)
-            } else {
-                r.json().then((err) => setErrors(err.errors))
-            }
-        })
-    }
+   
 
     return(
         <Card className="feeder_card">
@@ -63,35 +34,7 @@ function FeederCard({feeder, userID}) {
                 <div className="modal">
                     <div onClick={() => setShowReviewForm(false)} className="overlay"></div> 
                     <div className="modal-content">
-                        {/* new form component? could even component out modal entirely and pass down which form to include */}
-                        <h3>Create a review for {feeder.name}</h3>
-                        <form onSubmit={handleRevSubmit}>
-                            <input 
-                                onChange={(e) => setNewRating(e.target.value)} 
-                                autoComplete="off"
-                                value={newRating} 
-                                placeholder="Rating (1-5 stars)"
-                            />
-                            <input 
-                                onChange={(e) => setNewRevText(e.target.value)} 
-                                autoComplete="off"
-                                value={newRevText} 
-                                placeholder="Review text"
-                            />
-                            <button type="submit">
-                                Save your rating
-                            </button>
-                        </form>
-                        {errors.length > 0 ? (
-                            errors.map((err) => (
-                                <h5 key={err.index}>{err}</h5>
-                            ))
-                        ) : (
-                            null
-                        )}
-                        <button onClick={() => setShowReviewForm(false)}>
-                            Cancel
-                        </button>
+                        <RevForm feeder={feeder} userID={userID} updateUserRevs={updateUserRevs} setShowReviewForm={setShowReviewForm}/>
                     </div>
                 </div>
             )}

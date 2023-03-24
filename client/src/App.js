@@ -53,6 +53,22 @@ function App() {
     setFeeders(moreFeeders)
   }
 
+  function updateUserRevs(newRev) {
+    let updatedUser = {
+      ...user, 
+      reviews: [...user.reviews, newRev]
+    }
+    let updatedFeeders = feeders.map((feeder) => {
+      if (feeder.id === newRev.feeder.id) {
+        feeder = newRev.feeder
+        return feeder 
+      }
+      return feeder
+    })
+    setUser(updatedUser)
+    setFeeders(updatedFeeders)
+  }
+
 
   return (
     <div className="App">
@@ -78,6 +94,7 @@ function App() {
               userID={user.id} 
               userNeighbor={user.neighborhood} 
               renderFeederApp={renderFeeder}
+              updateUserRevs={updateUserRevs}
             />
           </Route>
         </Switch>

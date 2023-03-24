@@ -5,7 +5,7 @@ import FeederCard from "./FeederCard"
 import FeederForm from "./FeederForm"
 import FeederSortMenu from "./FeederSortMenu"
 
-function FeedersContainer({feedersArr, userID, userNeighbor, renderFeederApp}) {
+function FeedersContainer({feedersArr, userID, userNeighbor, renderFeederApp, updateUserRevs}) {
     
     const [showForm, setShowForm] = useState(false)
     const [sortType, setSortType] = useState("namealpha")
@@ -76,7 +76,7 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeederApp}) {
             <Card.Group itemsPerRow={3}>
                 {dispArr.map((feeder) => (
                     // <Card key={feeder.name}>
-                        <FeederCard feeder={feeder} key={feeder.id} userID={userID}/>
+                        <FeederCard key={feeder.id} feeder={feeder} userID={userID} updateUserRevs={updateUserRevs}/>
                     // </Card>
                 ))}
             </Card.Group>
