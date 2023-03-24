@@ -29,7 +29,8 @@ function App() {
     let updatedUser = {
       ...user,
       neighborhood: newUser.neighborhood,
-      fun_fact: newUser.fun_fact
+      fun_fact: newUser.fun_fact,
+      password_digest: newUser.password_digest
     }
     setUser(updatedUser)
   }

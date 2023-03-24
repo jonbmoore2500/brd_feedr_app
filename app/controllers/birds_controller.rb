@@ -1,6 +1,5 @@
 class BirdsController < ApplicationController
     wrap_parameters format: []
-    before_action :authorize, only: [:update]
 
     def create
         bird = Bird.create(bird_params)
@@ -28,17 +27,30 @@ class BirdsController < ApplicationController
 
     def update
         bird = Bird.find_by(id: params[:id])
-        # byebug
-        bird.update(update_params)
-        if bird.valid?
-            render json: bird, status: :created
-            # , include: ['reviews', 'reviews.feeder']
+        if bird.id == session[:user_id]
+            if params.include? :password_confirmation 
+                if bird.authenticate(params[:old_password])
+                    bird.update(password_params)
+                    if bird.valid?
+                        render json: bird, status: :created
+                    else
+                        render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
+                    end
+                else
+                    render json: { errors: ["Incorrect old password"] }, status: :unauthorized
+                end
+            else
+                byebug
+                bird.update(update_params)
+                if bird.valid?
+                    render json: bird, status: :created
+                else
+                    render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
+                end
+            end
         else
-            render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
+            render json: { errors: ["Not authorized"] }, status: :unauthorized 
         end
-    # rescue ActiveRecord::RecordInvalid => invalid
-    #     # byebug
-    #     render json: { errors: invalid.record.errors }, status: :unprocessable_entity
     end
 
     private
@@ -50,8 +62,8 @@ class BirdsController < ApplicationController
     def update_params
         params.permit(:id, :neighborhood, :fun_fact)
     end
-    
-    def authorize
-        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+
+    def password_params
+        params.permit(:id, :password, :password_confirmation)
     end
 end

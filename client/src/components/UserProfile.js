@@ -1,45 +1,12 @@
 import React, {useState} from "react"
+import EditUserForm from "./EditUserForm"
+import EditUserPWForm from "./EditUserPWForm"
 import "../modal.css"
 
 function UserProfile({userDisp, homePage = false, updateUser}) {
 
     const [updateModal, setUpdateModal] = useState(false)
-    const [errors, setErrors] = useState([])
-
-    const [neighborhood, setNeighborhood] = useState(userDisp.neighborhood)
-    const [funFact, setFunFact] = useState(userDisp.fun_fact)
-    // add password change
-    const neighborhoods = ["Uptown", "Edgewater", "Ravenswood", "The Loop", "Hyde Park", "Rogers Park", "Lakeview", "Kenwood", "Bronzeville"]
-
-    
-
-    function handleUpdateUser(e) {
-        e.preventDefault()
-        setErrors([])
-        const updatedUser = {
-            neighborhood: neighborhood,
-            fun_fact: funFact
-        }
-        //console.log(userDisp.id, "user id", updatedData)
-        fetch(`/birds/${userDisp.id}`, {
-            method: "PATCH",
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedUser)
-          })
-          .then((r) => {
-            if (r.ok) {
-                r.json().then((user) => updateUser(user)) 
-                setUpdateModal(false)
-            } else {
-                r.json().then((err) => setErrors(err.errors))
-            }
-          })
-          
-      
-         
-    }
+    const [passwordModal, setPasswordModal] = useState(false)    
 
     return (
         <div>
@@ -56,7 +23,16 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
                     null
                 )}
                 {homePage ? (
-                    <button onClick={() => setUpdateModal(true)}>Update User Information</button> 
+                    <>
+                        <button onClick={() => {
+                            setUpdateModal(true)
+                            setPasswordModal(false)
+                        }}>Update User Information</button>
+                        <button onClick={() => {
+                            setPasswordModal(true)
+                            setUpdateModal(false)
+                        }}>Update Password</button>  
+                    </>
                 ) : (
                     null 
                 )}
@@ -65,38 +41,17 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
                 <div className="modal">
                     <div onClick={() => setUpdateModal(false)} className="overlay"></div> 
                     <div className="modal-content">
-                        <h3>Update your profile</h3>
-                        <form onSubmit={handleUpdateUser}>
-                            {/* <input 
-                                onChange={(e) => setNeighborhood(e.target.value)}
-                                autoComplete="off"
-                                value={neighborhood}
-                            /> */}
-                            {/* change neighborhood to drop down */}
-                            <select onChange={(e) => setNeighborhood(e.target.value)}>
-                                {neighborhoods.map((neighbor) => (
-                                    <option key={neighbor} value={neighbor}>{neighbor}</option>
-                                ))}
-                            </select>
-                            <input
-                                onChange={(e) => setFunFact(e.target.value)}
-                                autoComplete="off"
-                                value={funFact}
-                            />
-                            {errors ? (
-                                errors.map((err) => (
-                                    <h4 key={err}>{err}</h4>
-                                ))
-                            ) : (
-                                null
-                            )}
-                            <button type="submit">
-                                Save changes
-                            </button>
-                        </form>
-                        <button onClick={() => setUpdateModal(false)}>Close</button>
+                        <EditUserForm userDisp={userDisp} setUpdateModal={setUpdateModal} updateUser={updateUser}/>
                     </div>
                 </div>
+            )}
+            {passwordModal && (
+                <div className="modal">
+                <div onClick={() => setPasswordModal(false)} className="overlay"></div> 
+                <div className="modal-content">
+                    <EditUserPWForm userDisp={userDisp} setPasswordModal={setPasswordModal} updateUser={updateUser}/>
+                </div>
+            </div>
             )}
         </div>
     )
