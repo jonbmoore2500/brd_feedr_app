@@ -7,7 +7,17 @@ function EditRevForm({review, handleDelete, handleEdit}) {
     const [errors, setErrors] = useState([])
     const [showModal, setShowModal] = useState(false)
 
-
+    function handleRevDelete(deleteID) {
+        fetch(`/reviews/${deleteID}`, {method: "DELETE"})
+        .then((r) => {
+            if (r.ok) {
+                r.json().then(() => {
+                    handleDelete(deleteID)
+                    setShowModal(false)
+                })
+            }
+        })
+    }
     
     function handleSubmitEdit(e) {
         e.preventDefault()
@@ -25,8 +35,10 @@ function EditRevForm({review, handleDelete, handleEdit}) {
         })
         .then((r) => {
             if (r.ok) {
-                r.json().then((review) => handleEdit(review))
-                // why does it say handleEdit isn't a function?
+                r.json().then((review) => {
+                    handleEdit(review)
+                    setShowModal(false)
+                })
             } else {
                 r.json().then((err) => setErrors(err.errors))
             }
@@ -36,7 +48,7 @@ function EditRevForm({review, handleDelete, handleEdit}) {
     return(
         <div>
             <button onClick={() => setShowModal(true)}>Edit</button>
-            <button onClick={() => handleDelete(review.id)}>Delete</button>
+            <button onClick={() => handleRevDelete(review.id)}>Delete</button>
             {showModal ? (
                 <div className="modal">
                 <div onClick={() => setShowModal(false)} className="overlay"></div> 

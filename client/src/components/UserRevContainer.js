@@ -3,7 +3,7 @@ import React from "react"
 import UserProfile from "./UserProfile"
 import ReviewCard from "./ReviewCard"
 
-function UserRevContainer({user, handleEdit}) {
+function UserRevContainer({user, handleDelete, handleEdit}) {
 
     function handleSort() {
         let userReviews = [...user.reviews]
@@ -26,7 +26,7 @@ function UserRevContainer({user, handleEdit}) {
                 <div className="right_reviews">
                     <h2>Your Reviews: </h2>
                     {dispRevs.map((rev) => (
-                        <ReviewCard key={rev.id} review={rev} signedIn={true} handleEdit={handleEdit}/>
+                        <ReviewCard key={rev.id} review={rev} signedIn={true} handleDelete={handleDelete} handleEdit={handleEdit}/>
                     ))}
                 </div>
             </div>

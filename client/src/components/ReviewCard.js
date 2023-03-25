@@ -1,14 +1,11 @@
 import React from "react"
 import EditRevForm from "./EditRevForm"
 
-function ReviewCard({review, signedIn = false}, handleEdit) {
+function ReviewCard({review, signedIn = false, handleDelete, handleEdit}) {
 
     
 
-    function handleDelete(deleteID) {
-        fetch(`/reviews/${deleteID}`, {method: "DELETE"})
-        .then(r => r.json()).then(data => console.log(data))
-    }
+   
 
     return(
         <div>

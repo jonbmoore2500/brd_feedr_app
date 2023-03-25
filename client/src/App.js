@@ -36,14 +36,25 @@ function App() {
   }
 
   function handleRevEdit(updatedRev) {
-    let userRevs = user.reviews.forEach((rev) => {
+    let userRevs = user.reviews.map((rev) => {
       if (rev.id === updatedRev.id) {
         rev = updatedRev
+        return rev 
       }
+      return rev
     })
     let updatedUser = {
       ...user,
-      reviews: [userRevs]
+      reviews: userRevs
+    }
+    setUser(updatedUser)
+  }
+
+  function handleRevDelete(deleteID) {
+    let userRevs = user.reviews.filter(rev => rev.id !== deleteID)
+    let updatedUser = {
+      ...user,
+      reviews: userRevs
     }
     setUser(updatedUser)
   }
@@ -85,6 +96,7 @@ function App() {
           <Route path="/view_reviews">
             <UserRevContainer 
               user={user} 
+              handleDelete={handleRevDelete}
               handleEdit={handleRevEdit}
             />
           </Route>
