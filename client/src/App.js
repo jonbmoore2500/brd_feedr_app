@@ -82,7 +82,6 @@ function App() {
     setFeeders(updatedFeeders)
   }
 
-
   return (
     <div className="App">
       <Header user={user} setUser={setUser}/>

@@ -5,7 +5,17 @@ import RevForm from "./RevForm"
 function FeederCard({feeder, userID, updateUserRevs}) {
 
     const [showReviewForm, setShowReviewForm] = useState(false)
-   
+    
+    function checkReviewable() {
+        let feederReviewable = true
+        let birdIDs = feeder.reviews.map(rev => rev.bird_id)
+        if (birdIDs.includes(userID)) {
+            feederReviewable = false
+        }
+        return feederReviewable
+    }
+    
+    let reviewable = checkReviewable()
 
     return(
         <Card className="feeder_card">
@@ -25,9 +35,14 @@ function FeederCard({feeder, userID, updateUserRevs}) {
                 ) : (
                 <h4>Be the first to review this feeder!</h4>
                 )}
+                { reviewable ? (
                 <button onClick={() => setShowReviewForm(true)}>
                     Review this feeder
                 </button>
+                ) : (
+                <h4>You've already reviewed this one!</h4>
+                )
+                }
             {/* </Card> */}
 
             {showReviewForm && (
