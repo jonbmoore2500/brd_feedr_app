@@ -52,9 +52,11 @@ function App() {
 
   function handleRevDelete(deleteID) {
     let userRevs = user.reviews.filter(rev => rev.id !== deleteID)
+    let userNumRevs = user.num_reviews - 1
     let updatedUser = {
       ...user,
-      reviews: userRevs
+      reviews: userRevs,
+      num_reviews: userNumRevs
     }
     setUser(updatedUser)
   }
