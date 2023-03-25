@@ -50,15 +50,21 @@ function App() {
     setUser(updatedUser)
   }
 
-  function handleRevDelete(deleteID) {
-    let userRevs = user.reviews.filter(rev => rev.id !== deleteID)
-    let userNumRevs = user.num_reviews - 1
+  function handleRevDelete(deleteID, updatedFeeder) {
     let updatedUser = {
       ...user,
-      reviews: userRevs,
-      num_reviews: userNumRevs
+      reviews: user.reviews.filter(rev => rev.id !== deleteID),
+      num_reviews: user.num_reviews - 1
     }
+    let updatedFeeders = feeders.map((feeder) => {
+      if (feeder.id === updatedFeeder.id) {
+        feeder = updatedFeeder
+        return feeder 
+      }
+      return feeder
+    })
     setUser(updatedUser)
+    setFeeders(updatedFeeders)
   }
 
   function renderFeeder(newFeeder) {
