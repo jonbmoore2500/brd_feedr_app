@@ -18,8 +18,7 @@ function FeederCard({feeder, userID, updateUserRevs}) {
     let reviewable = checkReviewable()
 
     return(
-        <Card className="feeder_card">
-            {/* <Card> */}
+        <Card >
                 <h2>{feeder.name}</h2>
                 <h4>Neighborhood: {feeder.neighborhood}</h4>
                 {feeder.refill_freq === 1 ? (
@@ -43,7 +42,6 @@ function FeederCard({feeder, userID, updateUserRevs}) {
                 <h4>You've already reviewed this one!</h4>
                 )
                 }
-            {/* </Card> */}
 
             {showReviewForm && (
                 <div className="modal">

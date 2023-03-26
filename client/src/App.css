@@ -59,11 +59,22 @@
   /* padding: 10px */
 }
 
+.ui.container {
+  justify-content: center;
+}
+
+.ui.three.cards{
+  justify-content: center;
+}
+
 .ui.card,
 .ui.cards>.card {
   background-color: rgba(18, 17, 54, 0.4);
   justify-content: center;
-  /* max-width: 30%; */
+  width: 31%;
+  float: left;
+  margin: 10px;
+  min-height: 275px
 }
 
 /* .ui.image {

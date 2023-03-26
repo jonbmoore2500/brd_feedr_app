@@ -57,14 +57,15 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeederApp, up
         //     console.log("passes test")
         //     newFeeders = [newestFeeder, ...newFeeders]
         //     // setNewestFeeder({})
-        // }
+        // } would like to have new feeder appear at top of list after creation, then be included normally after the first re-sort
+        // keep newest feeder in state, if exists move feeder with that id to top. reset newest feeder state to empty upon re-sort?
         return newFeeders
     }
 
     const dispArr = handleSort(sortType)
 
     return(
-        <Container>
+        <div>
             <h3>See all available feeders</h3>
             <button onClick={() => setShowForm(true)}>Add a new Feeder</button>
             {showForm ? (
@@ -73,14 +74,14 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeederApp, up
                 null
             )}
             <FeederSortMenu currentSort={sortType} handleSort={handleSortChange}/>
-            <Card.Group itemsPerRow={3}>
-                {dispArr.map((feeder) => (
-                    // <Card key={feeder.name}>
-                        <FeederCard key={feeder.id} feeder={feeder} userID={userID} updateUserRevs={updateUserRevs}/>
-                    // </Card>
-                ))}
-            </Card.Group>
-        </Container>
+            <Container>
+                <Card.Group itemsPerRow={3}>
+                    {dispArr.map((feeder) => (
+                            <FeederCard key={feeder.id} feeder={feeder} userID={userID} updateUserRevs={updateUserRevs}/>
+                    ))}
+                </Card.Group>
+            </Container>
+        </div>
     )
 
 }
