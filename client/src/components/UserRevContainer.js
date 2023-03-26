@@ -16,6 +16,7 @@ function UserRevContainer({user, handleDelete, handleEdit}) {
     }
 
     const dispRevs = handleSort()
+    // handle no reviews
 
     return(
         <div>
@@ -24,16 +25,25 @@ function UserRevContainer({user, handleDelete, handleEdit}) {
                     <UserProfile userDisp={user}/>
                 </div>
                 <div className="right_reviews">
-                    <h2>Your Reviews: </h2>
-                    {dispRevs.map((rev) => (
-                        <ReviewCard 
-                            key={rev.id} 
-                            review={rev} 
-                            signedIn={true} 
-                            handleDelete={handleDelete} 
-                            handleEdit={handleEdit}
-                        />
-                    ))}
+                    <h1>Your Reviews: </h1>
+                    { dispRevs.length > 0 ? (
+                    <>
+                        {dispRevs.map((rev) => (
+                            <ReviewCard 
+                                key={rev.id} 
+                                review={rev} 
+                                signedIn={true} 
+                                handleDelete={handleDelete} 
+                                handleEdit={handleEdit}
+                            />
+                        ))}
+                    </>
+                    ) : (
+                    <>
+                        <h2>No reviews to display</h2>
+                        <h3>Go to Find a Feeder to create your first review</h3>
+                    </>
+                    )}
                 </div>
             </div>
         </div>

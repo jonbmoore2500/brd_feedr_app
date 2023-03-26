@@ -11,7 +11,7 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
     return (
         <div>
             <div className="user-info">
-                <img src="https://www.allaboutbirds.org/guide/assets/photo/302469081-480px.jpg" alt="chickadee" id="prof_pic"/>
+                <img src={userDisp.img_url} alt="chickadee" id="prof_pic"/>
                 <h1>Username: {userDisp.username}</h1>
                 <h3>Species: {userDisp.species}</h3>
                 <h3>Neighborhood: {userDisp.neighborhood}</h3>

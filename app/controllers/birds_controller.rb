@@ -40,7 +40,7 @@ class BirdsController < ApplicationController
                     render json: { errors: ["Incorrect old password"] }, status: :unauthorized
                 end
             else
-                byebug
+                # byebug
                 bird.update(update_params)
                 if bird.valid?
                     render json: bird, status: :created
