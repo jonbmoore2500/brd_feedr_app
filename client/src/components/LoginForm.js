@@ -32,21 +32,23 @@ function LoginForm({setUser}) {
     }
 
     return(
-        <div>
+        <div className="user-form">
             <form onSubmit={handleLogin}>
                 <h3>Sign in</h3>
+                <label className="signup-label">Username: </label>
                 <input
                     onChange={(e) => setUsername(e.target.value)}
-                    autoComplete="off"
                     value={username}
-                    placeholder="Enter your username"
                 />
+                <br></br>
+                <label className="signup-label">Password: </label>
                 <input
                     onChange={(e) => setPassword(e.target.value)}
                     autoComplete="off"
                     value={password}
-                    placeholder="Enter your password"
                 />
+                <br></br>
+                <br></br>
                 <button type="submit">
                     Login
                 </button>

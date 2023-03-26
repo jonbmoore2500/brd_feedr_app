@@ -5,13 +5,10 @@ import Logout from "./Logout.js"
 function Header({user, setUser}) {
 
 return (
-    <div >
+    <div className="Main-header">
         <div className="App-header">
-            <h1>brd feedr</h1>
+            <h1 id="app-title">brd feedr</h1>
             { user ? <Logout user={user} setUser={setUser}/> : null}
-            {/* move to right side of top bar 
-            move NavBar to App, above routes for Home, Reviews, FF
-            */}
         </div>
        { user ? <NavBar /> : null }
     </div>

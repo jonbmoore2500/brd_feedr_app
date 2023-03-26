@@ -13,9 +13,10 @@ function Logout({user, setUser}) {
     
     return(
         <div id="logout">
-            <h3>{user.username}</h3>
+            <h4 className="logout-text">Current user: </h4>
+            <h3 className="logout-text">{user.username}</h3>
             {/* add mini picture */}
-            <button onClick={handleLogout}>Logout</button>
+            <button onClick={handleLogout} className="logout-text">Logout</button>
         </div>
     )
 }

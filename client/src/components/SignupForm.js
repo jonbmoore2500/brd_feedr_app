@@ -16,7 +16,6 @@ function SignupForm({setUser}) {
     function handleSubmitSignup(e) {
         e.preventDefault()
         setErrors([])
-        // console.log("hello")
         const newSignupObj = {
             username: username,
             species: species,
@@ -26,8 +25,6 @@ function SignupForm({setUser}) {
             password: pWord,
             password_confirmation: pWordConfirm
         }
-        console.log(newSignupObj)
-        
         fetch("/signup", {
             method: "POST",
             headers: {
@@ -45,58 +42,60 @@ function SignupForm({setUser}) {
     }
 
     return (
-        <div>
+        <div className="user-form">
             <form onSubmit={handleSubmitSignup}>
                 <h3>Sign up for a new account</h3>
+                <label className="signup-label">Username: </label>
                 <input 
                     onChange={(e) => setUsername(e.target.value)} 
                     autoComplete="off"
                     value={username} 
-                    placeholder="Enter a username"
                 />
+                <br></br>
+                <label className="signup-label">Species: </label>
                 <input
                     onChange={(e) => setSpecies(e.target.value)} 
                     autoComplete="off"
                     value={species} 
-                    placeholder="Enter a species"
                 /> 
+                <br></br>
+                <label className="signup-label">Image URL: </label>
                 {/* could change species to dropdown */}
                 <input
                     onChange={(e) => setImgURL(e.target.value)} 
                     autoComplete="off"
                     value={imgURL} 
-                    placeholder="Enter a profile pic URL"
                 /> 
-                {/* <input 
-                    onChange={(e) => setNeighborhood(e.target.value)} 
-                    autoComplete="off"
-                    value={neighborhood} 
-                    placeholder="What neighborhood do you live in?"
-                /> */}
-                {/* will change neighborhood to dropdown */}
+                <br></br>
+                <label className="signup-label">Neighborhood: </label>
                 <select onChange={(e) => setNeighborhood(e.target.value)}>
                     {neighborhoods.map((neighbor) => (
                         <option key={neighbor} value={neighbor}>{neighbor}</option>
                     ))}
                 </select>
+                <br></br>
+                <label className="signup-label">Fun Fact: </label>
                 <input 
                     onChange={(e) => setFunFact(e.target.value)} 
                     autoComplete="off"
                     value={funFact} 
-                    placeholder="What's a fun fact about you?"
                 />
+                <br></br>
+                <label className="signup-label">Password: </label>
                 <input 
                     onChange={(e) => setPWord(e.target.value)} 
                     autoComplete="off"
                     value={pWord} 
-                    placeholder="Enter your password"
                 />
+                <br></br>
+                <label className="signup-label">Confirm Password: </label>
                 <input 
                     onChange={(e) => setPWordConfirm(e.target.value)} 
                     autoComplete="off"
                     value={pWordConfirm} 
-                    placeholder="Confirm your password"
                 />
+                <br></br>
+                <br></br>
                 <button type="submit">
                     Sign up
                 </button>
@@ -106,14 +105,12 @@ function SignupForm({setUser}) {
                     {errors.map((err) => (
                         <h4>{err}</h4>
                     ))}
-                    
                 </>
             ) : (
                 null
             )}
         </div>
     )
-
 }
 
 export default SignupForm

@@ -118,10 +118,10 @@ function App() {
           </Route>
         </Switch>
         ) : (
-        <>
+        <div id="user-forms-parent">
           <SignupForm setUser={setUser}/>
           <LoginForm setUser={setUser}/>
-        </> 
+        </div> 
       )}
     </div>
   );

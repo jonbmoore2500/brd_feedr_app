@@ -7,30 +7,54 @@
   pointer-events: none;
 }
 
+.Main-header {
+  width: 100%;
+  min-height: 100px;
+}
 
 .App-header {
   background-color: #282c34;
   display: flex;
-  /* flex-direction: column; */
-  /* align-items: center; */
-  /* justify-content: center; */
   font-size: calc(10px + 1vmin);
   color: white;
-  width: 100%
+  padding-top: 20px;
+  padding-bottom: 20px
+  
+}
+#app-title {
+  text-align: center;
+  margin: auto;
+  font-size: 50px;
 }
 
-/* need to let App-header take up full screen width, have title in middle and #logout on the right  */
 #logout {
   position: absolute;
-  right: 0
+  right: 0;
+  padding: 0px
 }
 
-/* I NEED CSS HELP NONE OF THIS MAKES ANY SENSE */
+.logout-text {
+  padding: 0px;
+  margin: 0
+}
 
 .navBarDiv {
   background-color: #282c34;
-  
-  
+  display: inline;
+  padding: 10px;
+  width: 100%
+}
+
+.nav {
+  color: white;
+  padding-right: 10px;
+  padding-left: 10px
+}
+
+.user-form {
+  width: 50%;
+  float: left;
+  /* padding: 10px */
 }
 
 .ui.card,
