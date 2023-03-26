@@ -75,7 +75,8 @@ function App() {
   function updateUserRevs(newRev) {
     let updatedUser = {
       ...user, 
-      reviews: [...user.reviews, newRev]
+      reviews: [...user.reviews, newRev],
+      num_reviews: user.num_reviews + 1
     }
     let updatedFeeders = feeders.map((feeder) => {
       if (feeder.id === newRev.feeder.id) {

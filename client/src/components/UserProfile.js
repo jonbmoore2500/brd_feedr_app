@@ -41,7 +41,11 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
                 <div className="modal">
                     <div onClick={() => setUpdateModal(false)} className="overlay"></div> 
                     <div className="modal-content">
-                        <EditUserForm userDisp={userDisp} setUpdateModal={setUpdateModal} updateUser={updateUser}/>
+                        <EditUserForm 
+                            userDisp={userDisp} 
+                            setUpdateModal={setUpdateModal} 
+                            updateUser={updateUser}
+                        />
                     </div>
                 </div>
             )}
@@ -49,7 +53,11 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
                 <div className="modal">
                 <div onClick={() => setPasswordModal(false)} className="overlay"></div> 
                 <div className="modal-content">
-                    <EditUserPWForm userDisp={userDisp} setPasswordModal={setPasswordModal} updateUser={updateUser}/>
+                    <EditUserPWForm 
+                        userDisp={userDisp} 
+                        setPasswordModal={setPasswordModal} 
+                        updateUser={updateUser}
+                    />
                 </div>
             </div>
             )}

@@ -47,7 +47,12 @@ function FeederCard({feeder, userID, updateUserRevs}) {
                 <div className="modal">
                     <div onClick={() => setShowReviewForm(false)} className="overlay"></div> 
                     <div className="modal-content">
-                        <RevForm feeder={feeder} userID={userID} updateUserRevs={updateUserRevs} setShowReviewForm={setShowReviewForm}/>
+                        <RevForm 
+                            feeder={feeder} 
+                            userID={userID} 
+                            updateUserRevs={updateUserRevs} 
+                            setShowReviewForm={setShowReviewForm}
+                        />
                     </div>
                 </div>
             )}

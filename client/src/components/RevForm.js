@@ -24,8 +24,10 @@ function RevForm({feeder, userID, updateUserRevs, setShowReviewForm}) {
         })
         .then((r) => {
             if (r.ok) {
-                r.json().then((rev) => updateUserRevs(rev))
-                setShowReviewForm(false)
+                r.json().then((rev) => {
+                    updateUserRevs(rev)
+                    setShowReviewForm(false)
+                })
             } else {
                 r.json().then((err) => setErrors(err.errors))
             }
