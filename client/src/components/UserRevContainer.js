@@ -26,7 +26,13 @@ function UserRevContainer({user, handleDelete, handleEdit}) {
                 <div className="right_reviews">
                     <h2>Your Reviews: </h2>
                     {dispRevs.map((rev) => (
-                        <ReviewCard key={rev.id} review={rev} signedIn={true} handleDelete={handleDelete} handleEdit={handleEdit}/>
+                        <ReviewCard 
+                            key={rev.id} 
+                            review={rev} 
+                            signedIn={true} 
+                            handleDelete={handleDelete} 
+                            handleEdit={handleEdit}
+                        />
                     ))}
                 </div>
             </div>

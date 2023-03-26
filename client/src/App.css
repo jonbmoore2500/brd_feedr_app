@@ -17,10 +17,10 @@
   display: flex;
   font-size: calc(10px + 1vmin);
   color: white;
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 20px
-  
 }
+
 #app-title {
   text-align: center;
   margin: auto;
@@ -39,6 +39,8 @@
 }
 
 .navBarDiv {
+  position:absolute;
+  left: 0;
   background-color: #282c34;
   display: inline;
   padding: 10px;
@@ -48,7 +50,7 @@
 .nav {
   color: white;
   padding-right: 10px;
-  padding-left: 10px
+  padding-left: 10px;
 }
 
 .user-form {
@@ -72,32 +74,47 @@
 .user-info {
   background-color: rgba(18, 17, 54, 0.4);
   justify-content: center;
-  max-width: 80%;
+  position: relative;
+  margin: auto;
+  padding-bottom: 20px;
+  top: 9px
 }
 
 #prof_pic {
   max-width: 100%;
-  max-height: 100%
-}
-
-.user_revs_container {
-  padding: 10px
+  max-height: 90%
 }
 
 .left_prof {
-  width: 30%;
-  padding: 10px;
+  width: 40%;
   float: left;
-  border:1px solid rgba(18, 17, 54, 0.4);
-  
 }
 
 .right_reviews {
-  max-width: 70%;
-  padding: 10px;
+  width: 60%;
   float: left;
-  order:1px solid rgba(18, 17, 54, 0.4);
+  justify-content: center;
 }
+
+.review-card{
+  display: flex;
+  border-width: 3px;
+  border-color:#0c172d;
+  padding: 10px;
+  
+}
+
+.review-title {
+  width: 40%;
+  float: left;
+  background: #18651fc1;
+}
+.review-contents {
+  width: 50%;
+  float: left;
+  background: #18651e70;
+}
+
 
 /* .feeder_card {
   border: 2px solid rgba(18, 17, 54, 0.4);

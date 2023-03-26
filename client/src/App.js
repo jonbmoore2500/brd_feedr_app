@@ -91,6 +91,7 @@ function App() {
   return (
     <div className="App">
       <Header user={user} setUser={setUser}/>
+      <br></br>
       { user ? (
         <Switch>
           <Route exact path="/"> 

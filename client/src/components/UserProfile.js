@@ -12,7 +12,7 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
         <div>
             <div className="user-info">
                 <img src="https://www.allaboutbirds.org/guide/assets/photo/302469081-480px.jpg" alt="chickadee" id="prof_pic"/>
-                <h2>{userDisp.username}</h2>
+                <h1>Username: {userDisp.username}</h1>
                 <h3>Species: {userDisp.species}</h3>
                 <h3>Neighborhood: {userDisp.neighborhood}</h3>
                 <h3>Fun Fact: {userDisp.fun_fact}</h3>
