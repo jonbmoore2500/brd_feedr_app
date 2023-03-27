@@ -30,7 +30,6 @@ function EditUserForm({userDisp, setUpdateModal, updateUser}) {
                 r.json().then((err) => setErrors(err.errors))
             }
           })    
-          // doesn't work!
     }
 
     return(

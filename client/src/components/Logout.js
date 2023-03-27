@@ -1,12 +1,16 @@
 import React from "react"
+import {useHistory} from "react-router-dom"
 
 function Logout({user, setUser}) {
+
+    const history = useHistory()
 
     function handleLogout() {
         fetch("/logout", {method: "DELETE"})
         .then((r) => {
             if (r.ok) {
                 setUser(null)
+                history.push("/")
             }
         })
     }
