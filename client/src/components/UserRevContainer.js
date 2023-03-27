@@ -16,7 +16,6 @@ function UserRevContainer({user, handleDelete, handleEdit}) {
     }
 
     const dispRevs = handleSort()
-    // handle no reviews
 
     return(
         <div>
@@ -48,7 +47,6 @@ function UserRevContainer({user, handleDelete, handleEdit}) {
             </div>
         </div>
     )
-
 }
 
 export default UserRevContainer
