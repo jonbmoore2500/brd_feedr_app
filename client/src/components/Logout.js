@@ -11,6 +11,7 @@ function Logout({user, setUser}) {
             if (r.ok) {
                 setUser(null)
                 history.push("/")
+                // doesn't quite work, 
             }
         })
     }
