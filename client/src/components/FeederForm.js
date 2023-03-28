@@ -46,12 +46,6 @@ function FeederForm({showForm, renderFeeder}) {
                     value={feederName} 
                     placeholder="Name"
                 />
-                {/* <input 
-                    onChange={(e) => setFeederNeighborhood(e.target.value)}                     
-                    autoComplete="off"
-                    value={feederNeighborhood} 
-                    placeholder="Neighborhood"
-                /> */}
                 <select onChange={(e) => setFeederNeighborhood(e.target.value)}>
                     {neighborhoods.map((neighbor) => (
                         <option key={neighbor} value={neighbor}>{neighbor}</option>
