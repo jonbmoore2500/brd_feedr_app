@@ -9,7 +9,8 @@
 
 .Main-header {
   width: 100%;
-  min-height: 100px;
+  height: 15%;
+  /* position: fixed */
 }
 
 .App-header {
@@ -18,7 +19,7 @@
   font-size: calc(10px + 1vmin);
   color: white;
   padding-top: 10px;
-  padding-bottom: 20px
+  padding-bottom: 20px;
 }
 
 #app-title {
@@ -99,11 +100,14 @@
 .left_prof {
   width: 40%;
   float: left;
+  top: 119px;
+  position: fixed;
+  height: 85%
 }
 
 .right_reviews {
   width: 60%;
-  float: left;
+  float: right;
   justify-content: center;
 }
 

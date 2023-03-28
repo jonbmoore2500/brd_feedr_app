@@ -5,61 +5,42 @@ import FeederCard from "./FeederCard"
 import FeederForm from "./FeederForm"
 import FeederSortMenu from "./FeederSortMenu"
 
-function FeedersContainer({feedersArr, userID, userNeighbor, renderFeederApp, updateUserRevs}) {
+function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder, updateUserRevs}) {
     
     const [showForm, setShowForm] = useState(false)
     const [sortType, setSortType] = useState("namealpha")
-    // const [newestFeeder, setNewestFeeder] = useState({})
 
     function handleSortChange(newSort) {
         setSortType(newSort)
     }
 
-    function renderFeeder(newFeeder) {
-        // setNewestFeeder(newFeeder)
-        renderFeederApp(newFeeder)
+    function helperSort(array, direction, sortField) {
+        let sorted = array.sort(function (a, b) {
+            if (a[sortField] < b[sortField]) {return -1 * direction} 
+            if (a[sortField] > b[sortField]) {return direction}
+            return 0})
+        return sorted
     }
 
     function handleSort(sortType) {
-        let newFeeders = [...feedersArr]
         if (sortType === "namealpha") {
             // alphabetical a-z
-            newFeeders = newFeeders.sort(function (a, b) {
-            if (a.name < b.name) {return -1} 
-            if (a.name > b.name) {return 1}
-            return 0})
+            return helperSort(feedersArr, 1, "name")
         } else if (sortType === "namezeta") {
             // alphabetical z-a
-            newFeeders = newFeeders.sort(function (a, b) {
-            if (a.name < b.name) {return 1} 
-            if (a.name > b.name) {return -1}
-            return 0})
+            return helperSort(feedersArr, -1, "name")
         } else if (sortType === "neighbor") {
-            // home neighborhood, then neighborhoods alphabetically
-            let homeFeeders = newFeeders.filter(feeder => feeder.neighborhood === userNeighbor)
-            let otherFeeders = newFeeders.filter(feeder => feeder.neighborhood !== userNeighbor)
-            newFeeders = [...homeFeeders, ...otherFeeders.sort(function (a, b) {
-                if (a.neighborhood < b.neighborhood) {return -1}
-                if (a.neighborhood > b.neighborhood) {return 1}
-                return 0})]
+            // home neighborhood, then other neighborhoods alphabetically
+            let homeFeeders = feedersArr.filter(feeder => feeder.neighborhood === userNeighbor)
+            let otherFeeders = helperSort(feedersArr.filter(feeder => feeder.neighborhood !== userNeighbor), 1, "neighborhood")
+            return [...homeFeeders, ...otherFeeders]
         } else if (sortType === "ratingzeta") {
             // rating high to low
-            newFeeders = newFeeders.sort(function (a, b) {
-                return (a.average_rating - b.average_rating)
-            })
+            return helperSort(feedersArr, 1, "average_rating")
         } else {
             // rating low to high
-            newFeeders = newFeeders.sort(function (a, b) {
-                return (b.average_rating - a.average_rating)
-            })
+            return helperSort(feedersArr, -1, "average_rating")
         } 
-        // if (newestFeeder.hasOwnProperty('name')) {
-        //     console.log("passes test")
-        //     newFeeders = [newestFeeder, ...newFeeders]
-        //     // setNewestFeeder({})
-        // } would like to have new feeder appear at top of list after creation, then be included normally after the first re-sort
-        // keep newest feeder in state, if exists move feeder with that id to top. reset newest feeder state to empty upon re-sort?
-        return newFeeders
     }
 
     const dispArr = handleSort(sortType)

@@ -114,7 +114,7 @@ function App() {
               feedersArr={feeders} 
               userID={user.id} 
               userNeighbor={user.neighborhood} 
-              renderFeederApp={renderFeeder}
+              renderFeeder={renderFeeder}
               updateUserRevs={updateUserRevs}
             />
           </Route>
