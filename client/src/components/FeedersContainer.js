@@ -46,8 +46,8 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder, updat
     const dispArr = handleSort(sortType)
 
     return(
-        <div>
-            <h3>See all available feeders</h3>
+        <div id="feeders-container">
+            <h1>See all available feeders</h1>
             <button onClick={() => setShowForm(true)}>Add a new Feeder</button>
             {showForm ? (
                 <FeederForm showForm={setShowForm} renderFeeder={renderFeeder}/>
@@ -69,8 +69,6 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder, updat
             </Container>
         </div>
     )
-
 }
-
 
 export default FeedersContainer
