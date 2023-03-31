@@ -58,12 +58,12 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder, updat
             <Container>
                 <Card.Group itemsPerRow={3}>
                     {dispArr.map((feeder) => (
-                            <FeederCard 
-                                key={feeder.id} 
-                                feeder={feeder} 
-                                userID={userID} 
-                                updateUserRevs={updateUserRevs}
-                            />
+                        <FeederCard 
+                            key={feeder.id} 
+                            feeder={feeder} 
+                            userID={userID} 
+                            updateUserRevs={updateUserRevs}
+                        />
                     ))}
                 </Card.Group>
             </Container>

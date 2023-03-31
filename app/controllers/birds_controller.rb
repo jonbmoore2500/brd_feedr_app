@@ -28,7 +28,7 @@ class BirdsController < ApplicationController
     def update
         bird = Bird.find_by(id: params[:id])
         if bird.id == session[:user_id]
-            if params.include? :password_confirmation 
+            if params.include? :old_password 
                 if bird.authenticate(params[:old_password])
                     bird.update(password_params)
                     if bird.valid?
