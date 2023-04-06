@@ -114,7 +114,6 @@ function App() {
               <FeedersContainer 
                 feedersArr={feeders} 
                 userID={user.id} 
-                userNeighbor={user.neighborhood} 
                 renderFeeder={renderFeeder}
                 updateUserRevs={updateUserRevs}
               />

@@ -1,14 +1,17 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
 import {Card, Container} from "semantic-ui-react"
 
+import { UserContext } from "../contexts/UserContext.js"
 import FeederCard from "./FeederCard"
 import FeederForm from "./FeederForm"
 import FeederSortMenu from "./FeederSortMenu"
 
-function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder, updateUserRevs}) {
+function FeedersContainer({feedersArr, renderFeeder, updateUserRevs}) {
     
     const [showForm, setShowForm] = useState(false)
     const [sortType, setSortType] = useState("namealpha")
+
+    const userNeighbor = useContext(UserContext).neighborhood
 
     function handleSortChange(newSort) {
         setSortType(newSort)
@@ -61,7 +64,6 @@ function FeedersContainer({feedersArr, userID, userNeighbor, renderFeeder, updat
                         <FeederCard 
                             key={feeder.id} 
                             feeder={feeder} 
-                            userID={userID} 
                             updateUserRevs={updateUserRevs}
                         />
                     ))}

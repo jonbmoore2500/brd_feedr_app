@@ -1,8 +1,9 @@
 class ReviewsController < ApplicationController
     wrap_parameters format: []
+    before_action :authorize
 
     def create
-        review = Review.create(review_params)
+        review = @current_user.reviews.create(review_params)
         if review.valid?
             render json: review, status: :created
         else
@@ -11,8 +12,8 @@ class ReviewsController < ApplicationController
     end
 
     def update
-        review = Review.find_by(id: params[:id])
-        if review.bird_id == session[:user_id]
+        if @current_user.id == session[:user_id]
+            review = @current_user.reviews.find_by(id: params[:id])
             review.update(update_params)
             if review.valid?
                 render json: review, status: :created
@@ -25,9 +26,9 @@ class ReviewsController < ApplicationController
     end
 
     def destroy
-        review = Review.find_by(id: params[:id])
-        feeder = review.feeder
-        if review.bird_id == session[:user_id]
+        if @current_user.id == session[:user_id]
+            review = @current_user.reviews.find_by(id: params[:id])
+            feeder = review.feeder
             review.destroy
             render json: feeder, status: :ok
             # better way to do this? need an updated feeder upon delete to update state,
@@ -40,7 +41,7 @@ class ReviewsController < ApplicationController
     private
 
     def review_params
-        params.permit(:bird_id, :feeder_id, :rating, :text)
+        params.permit(:feeder_id, :rating, :text)
     end
 
     def update_params
