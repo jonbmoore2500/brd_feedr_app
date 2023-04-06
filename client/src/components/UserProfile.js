@@ -1,9 +1,12 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
+import { UserContext } from "../contexts/UserContext"
 import EditUserForm from "./EditUserForm"
 import EditUserPWForm from "./EditUserPWForm"
 import "../modal.css"
 
-function UserProfile({userDisp, homePage = false, updateUser}) {
+function UserProfile({homePage = false, updateUser}) {
+
+    const user = useContext(UserContext)
 
     const [updateModal, setUpdateModal] = useState(false)
     const [passwordModal, setPasswordModal] = useState(false)    
@@ -11,13 +14,13 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
     return (
         <div>
             <div className="user-info">
-                <img src={userDisp.img_url} alt="chickadee" id="prof_pic"/>
-                <h1>Username: {userDisp.username}</h1>
-                <h3>Species: {userDisp.species}</h3>
-                <h3>Neighborhood: {userDisp.neighborhood}</h3>
-                <h3>Fun Fact: {userDisp.fun_fact}</h3>
-                <h3>Feeders Reviewed: {userDisp.num_reviews}</h3>
-                {userDisp.num_reviews === 0 ? (
+                <img src={user.img_url} alt="chickadee" id="prof_pic"/>
+                <h1>Username: {user.username}</h1>
+                <h3>Species: {user.species}</h3>
+                <h3>Neighborhood: {user.neighborhood}</h3>
+                <h3>Fun Fact: {user.fun_fact}</h3>
+                <h3>Feeders Reviewed: {user.num_reviews}</h3>
+                {user.num_reviews === 0 ? (
                     <h4>Go to Find a Feeder to write your first review!</h4>
                 ) : (
                     null
@@ -42,7 +45,9 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
                     <div onClick={() => setUpdateModal(false)} className="overlay"></div> 
                     <div className="modal-content">
                         <EditUserForm 
-                            userDisp={userDisp} 
+                            userNeighbor={user.neighborhood} 
+                            userFunFact={user.fun_fact}
+                            userID={user.id} 
                             setUpdateModal={setUpdateModal} 
                             updateUser={updateUser}
                         />
@@ -54,7 +59,7 @@ function UserProfile({userDisp, homePage = false, updateUser}) {
                 <div onClick={() => setPasswordModal(false)} className="overlay"></div> 
                 <div className="modal-content">
                     <EditUserPWForm 
-                        userDisp={userDisp} 
+                        userID={user.id} 
                         setPasswordModal={setPasswordModal} 
                         updateUser={updateUser}
                     />

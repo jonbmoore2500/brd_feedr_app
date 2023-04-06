@@ -1,7 +1,7 @@
 import React from "react"
 import {useHistory} from "react-router-dom"
 
-function Logout({user, setUser}) {
+function Logout({username, setUser}) {
 
     const history = useHistory()
 
@@ -11,7 +11,6 @@ function Logout({user, setUser}) {
             if (r.ok) {
                 setUser(null)
                 history.push("/")
-                // doesn't quite work, 
             }
         })
     }
@@ -19,7 +18,7 @@ function Logout({user, setUser}) {
     return(
         <div id="logout">
             <h4 className="logout-text">Current user: </h4>
-            <h3 className="logout-text">{user.username}</h3>
+            <h3 className="logout-text">{username}</h3>
             {/* add mini picture */}
             <button onClick={handleLogout} className="logout-text">Logout</button>
         </div>

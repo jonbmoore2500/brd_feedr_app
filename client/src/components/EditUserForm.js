@@ -1,9 +1,9 @@
 import React, {useState} from "react"
 
-function EditUserForm({userDisp, setUpdateModal, updateUser}) {
-    
-    const [neighborhood, setNeighborhood] = useState(userDisp.neighborhood)
-    const [funFact, setFunFact] = useState(userDisp.fun_fact)
+function EditUserForm({userNeighbor, userFunFact, userID, setUpdateModal, updateUser}) {
+
+    const [neighborhood, setNeighborhood] = useState(userNeighbor)
+    const [funFact, setFunFact] = useState(userFunFact)
     const [errors, setErrors] = useState([])
 
     const neighborhoods = ["Uptown", "Edgewater", "Ravenswood", "The Loop", "Hyde Park", "Rogers Park", "Lakeview", "Kenwood", "Bronzeville"]
@@ -15,7 +15,7 @@ function EditUserForm({userDisp, setUpdateModal, updateUser}) {
             neighborhood: neighborhood,
             fun_fact: funFact
         }
-        fetch(`/birds/${userDisp.id}`, {
+        fetch(`/birds/${userID}`, {
             method: "PATCH",
             headers: {
               'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ function EditUserForm({userDisp, setUpdateModal, updateUser}) {
         <>
             <h3>Update your profile</h3>
             <form onSubmit={handleUpdateUser}>
-                <select onChange={(e) => setNeighborhood(e.target.value)} defaultValue={userDisp.neighborhood}>
+                <select onChange={(e) => setNeighborhood(e.target.value)} defaultValue={userNeighbor}>
                     {neighborhoods.map((neighbor) => (
                         <option key={neighbor} value={neighbor}>{neighbor}</option>
                     ))}

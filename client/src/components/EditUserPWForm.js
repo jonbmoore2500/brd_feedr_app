@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 
-function EditUserPWForm({userDisp, setPasswordModal, updateUser}) {
+function EditUserPWForm({userID, setPasswordModal, updateUser}) {
 
     const [newPWord, setNewPWord] = useState("")
     const [newPWordConfirm, setNewPWordConfirm] = useState("")
@@ -15,7 +15,7 @@ function EditUserPWForm({userDisp, setPasswordModal, updateUser}) {
             password_confirmation: newPWordConfirm,
             old_password: oldPWord
         }
-        fetch(`/birds/${userDisp.id}`, {
+        fetch(`/birds/${userID}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'

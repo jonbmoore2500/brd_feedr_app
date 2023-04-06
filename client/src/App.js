@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react"
 import {Switch, Route} from "react-router-dom"
 
 import './App.css';
+import { UserContext } from "./contexts/UserContext";
 import Header from "./components/Header.js"
 import SignupForm from './components/SignupForm';
 import UserProfile from "./components/UserProfile.js"
@@ -91,40 +92,41 @@ function App() {
 
   return (
     <div className="App">
-      <Header user={user} setUser={setUser}/>
-      <br></br>
-      { user ? (
-        <Switch>
-          <Route exact path="/"> 
-            <UserProfile 
-              userDisp={user} 
-              homePage={true} 
-              updateUser={handleUserUpdate}
-            />
-          </Route>
-          <Route path="/view_reviews">
-            <UserRevContainer 
-              user={user} 
-              handleDelete={handleRevDelete}
-              handleEdit={handleRevEdit}
-            />
-          </Route>
-          <Route path="/find_feeder">
-            <FeedersContainer 
-              feedersArr={feeders} 
-              userID={user.id} 
-              userNeighbor={user.neighborhood} 
-              renderFeeder={renderFeeder}
-              updateUserRevs={updateUserRevs}
-            />
-          </Route>
-        </Switch>
-        ) : (
-        <div id="user-forms-parent">
-          <SignupForm setUser={setUser}/>
-          <LoginForm setUser={setUser}/>
-        </div> 
-      )}
+      <UserContext.Provider value={user}>
+        <Header setUser={setUser}/>
+        <br></br>
+        { user ? (
+          <Switch>
+            <Route exact path="/"> 
+              <UserProfile 
+                homePage={true} 
+                updateUser={handleUserUpdate}
+              />
+            </Route>
+            <Route path="/view_reviews">
+              <UserRevContainer 
+                reviews={user.reviews} 
+                handleDelete={handleRevDelete}
+                handleEdit={handleRevEdit}
+              />
+            </Route>
+            <Route path="/find_feeder">
+              <FeedersContainer 
+                feedersArr={feeders} 
+                userID={user.id} 
+                userNeighbor={user.neighborhood} 
+                renderFeeder={renderFeeder}
+                updateUserRevs={updateUserRevs}
+              />
+            </Route>
+          </Switch>
+          ) : (
+          <div id="user-forms-parent">
+            <SignupForm setUser={setUser}/>
+            <LoginForm setUser={setUser}/>
+          </div> 
+        )}
+      </UserContext.Provider>
     </div>
   );
 }
