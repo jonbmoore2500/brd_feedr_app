@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-
+    before_action :authorize, only: [:destroy]
+    
     def create
         user = Bird.find_by(username: params[:username])
         if user&.authenticate(params[:password])

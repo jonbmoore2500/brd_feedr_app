@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 
-function RevForm({feeder, userID, updateUserRevs, setShowReviewForm}) {
+function RevForm({feeder, updateUserRevs, setShowReviewForm}) {
     
     const [newRating, setNewRating] = useState("")
     const [newRevText, setNewRevText] = useState("")
@@ -10,7 +10,6 @@ function RevForm({feeder, userID, updateUserRevs, setShowReviewForm}) {
         e.preventDefault()
         setErrors([])
         let newReviewObj = {
-            bird_id: userID,
             feeder_id: feeder.id,
             rating: newRating,
             text: newRevText
@@ -25,7 +24,6 @@ function RevForm({feeder, userID, updateUserRevs, setShowReviewForm}) {
         .then((r) => {
             if (r.ok) {
                 r.json().then((rev) => {
-                    console.log("rev",rev)
                     updateUserRevs(rev)
                     setShowReviewForm(false)
                 })

@@ -1,5 +1,6 @@
 class BirdsController < ApplicationController
     wrap_parameters format: []
+    before_action :authorize, only: [:update, :show]
 
     def create
         bird = Bird.create(bird_params)
@@ -17,12 +18,7 @@ class BirdsController < ApplicationController
     end
 
     def show
-        bird = Bird.find_by(id: session[:user_id])
-        if bird
-            render json: bird, include: ['reviews', 'reviews.feeder']
-        else
-            render json: {error: "no user logged in"}, status: :unauthorized
-        end
+        render json: @current_user, include: ['reviews', 'reviews.feeder']
     end
 
     def update
@@ -40,7 +36,6 @@ class BirdsController < ApplicationController
                     render json: { errors: ["Incorrect old password"] }, status: :unauthorized
                 end
             else
-                # byebug
                 bird.update(update_params)
                 if bird.valid?
                     render json: bird, status: :created
