@@ -11,11 +11,12 @@ class BirdsController < ApplicationController
             render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
         end
     end
-
-    def index 
-        birds = Bird.all 
-        render json: birds
-    end
+   
+    ## for dev purposes
+    # def index 
+    #     birds = Bird.all 
+    #     render json: birds
+    # end
 
     def show
         render json: @current_user, include: ['reviews', 'reviews.feeder']
@@ -23,7 +24,7 @@ class BirdsController < ApplicationController
 
     def update
         bird = Bird.find_by(id: params[:id])
-        if bird.id == session[:user_id]
+        if bird.id == @current_user.id
             if params.include? :old_password 
                 if bird.authenticate(params[:old_password])
                     bird.update(password_params)

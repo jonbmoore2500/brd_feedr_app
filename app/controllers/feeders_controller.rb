@@ -1,5 +1,6 @@
 class FeedersController < ApplicationController
     wrap_parameters format: []
+    before_action :authorize
     
     def index
         feeders = Feeder.all

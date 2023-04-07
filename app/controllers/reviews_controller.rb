@@ -13,22 +13,29 @@ class ReviewsController < ApplicationController
 
     def update
         review = @current_user.reviews.find_by(id: params[:id])
-        review.update(update_params)
-        if review.valid?
-            render json: review, status: :created
+        if review   
+            review.update(update_params)
+            if review.valid?
+                render json: review, status: :created
+            else
+                render json: {errors: review.errors.full_messages}, status: :unprocessable_entity
+            end
         else
-            render json: {errors: review.errors.full_messages}, status: :unprocessable_entity
+            render json: { error: "Not authorized" }, status: :unauthorized 
         end
     end
 
     def destroy
         review = @current_user.reviews.find_by(id: params[:id])
-        feeder = review.feeder
-        review.destroy
-        render json: feeder, status: :ok
-        # better way to do this? need an updated feeder upon delete to update state,
-        # don't want to wait and do a second fetch
-        # reconfig to handle recalculate in front end
+        if review
+            feeder = review.feeder
+            review.destroy
+            render json: feeder, status: :ok
+            # better way to do this? need an updated feeder upon delete to update state,
+            # don't want to wait and do a second fetch
+        else
+            render json: { error: "Not authorized" }, status: :unauthorized
+        end
     end
 
     private
