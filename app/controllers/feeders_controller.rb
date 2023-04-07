@@ -4,13 +4,15 @@ class FeedersController < ApplicationController
     
     def index
         feeders = Feeder.all
-        render json: feeders, include: [:average_rating, :num_reviews]
+        render json: feeders
+        # , include: [:average_rating, :num_reviews]
     end
 
     def create
         feeder = Feeder.create(feeder_params)
         if feeder.valid?
-            render json: feeder, status: :created, include: [:average_rating, :num_reviews]
+            render json: feeder, status: :created
+            # , include: [:average_rating, :num_reviews]
         else
             render json: {errors: feeder.errors.full_messages}, status: :unprocessable_entity
         end

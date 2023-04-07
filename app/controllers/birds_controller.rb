@@ -6,7 +6,7 @@ class BirdsController < ApplicationController
         bird = Bird.create(bird_params)
         if bird.valid?
             session[:user_id] = bird.id
-            render json: bird, status: :created, include: [:num_reviews]
+            render json: bird, status: :created
         else
             render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
         end

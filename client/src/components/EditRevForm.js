@@ -7,6 +7,8 @@ function EditRevForm({review, handleDelete, handleEdit}) {
     const [errors, setErrors] = useState([])
     const [showModal, setShowModal] = useState(false)
 
+    console.log(review)
+
     function handleRevDelete(deleteID) {
         fetch(`/reviews/${deleteID}`, {method: "DELETE"})
         .then((r) => {
