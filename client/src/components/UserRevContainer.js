@@ -1,12 +1,48 @@
-import React from "react"
+import React, {useContext} from "react"
+
+import { UserContext } from "../contexts/UserContext";
 
 import UserProfile from "./UserProfile"
 import ReviewCard from "./ReviewCard"
 
-function UserRevContainer({reviews, handleDelete, handleEdit}) {
+function UserRevContainer() {
 
+    const {user, setUser} = useContext(UserContext)
+
+    function handleRevEdit(updatedRev) {
+        let userRevs = user.reviews.map((rev) => {
+          if (rev.id === updatedRev.id) {
+            rev = updatedRev
+            return rev 
+          }
+          return rev
+        })
+        let updatedUser = {
+          ...user,
+          reviews: userRevs
+        }
+        setUser(updatedUser)
+    }
+
+    function handleRevDelete(deleteID, updatedFeeder) {
+        // let updatedUser = {
+        //   ...user,
+        //   reviews: user.reviews.filter(rev => rev.id !== deleteID),
+        //   num_reviews: user.num_reviews - 1
+        // }
+        // let updatedFeeders = feeders.map((feeder) => {
+        //   if (feeder.id === updatedFeeder.id) {
+        //     feeder = updatedFeeder
+        //     return feeder 
+        //   }
+        //   return feeder
+        // })
+        // setUser(updatedUser)
+        // setFeeders(updatedFeeders)
+    }
+    
     function handleSort() {
-        let userReviews = [...reviews]
+        let userReviews = [...user.reviews]
         userReviews = userReviews.sort(function (a, b) {
             if (a.feeder.name < b.feeder.name) {return -1} 
             if (a.feeder.name > b.feeder.name) {return 1}
@@ -32,8 +68,8 @@ function UserRevContainer({reviews, handleDelete, handleEdit}) {
                                 key={rev.id} 
                                 review={rev} 
                                 signedIn={true} 
-                                handleDelete={handleDelete} 
-                                handleEdit={handleEdit}
+                                handleDelete={handleRevDelete} 
+                                handleEdit={handleRevEdit}
                             />
                         ))}
                     </>

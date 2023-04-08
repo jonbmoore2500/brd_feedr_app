@@ -4,12 +4,21 @@ import EditUserForm from "./EditUserForm"
 import EditUserPWForm from "./EditUserPWForm"
 import "../modal.css"
 
-function UserProfile({homePage = false, updateUser}) {
+function UserProfile({homePage = false}) {
 
-    const {user} = useContext(UserContext)
-    console.log(user, "testing")
+    const {user, setUser} = useContext(UserContext)
     const [updateModal, setUpdateModal] = useState(false)
     const [passwordModal, setPasswordModal] = useState(false)    
+
+    function handleUserUpdate(newUser) {
+        let updatedUser = {
+          ...user,
+          neighborhood: newUser.neighborhood,
+          fun_fact: newUser.fun_fact,
+          password_digest: newUser.password_digest
+        }
+        setUser(updatedUser)
+    }
 
     return (
         <div>
@@ -49,7 +58,7 @@ function UserProfile({homePage = false, updateUser}) {
                             userFunFact={user.fun_fact}
                             userID={user.id} 
                             setUpdateModal={setUpdateModal} 
-                            updateUser={updateUser}
+                            updateUser={handleUserUpdate}
                         />
                     </div>
                 </div>
@@ -61,7 +70,7 @@ function UserProfile({homePage = false, updateUser}) {
                     <EditUserPWForm 
                         userID={user.id} 
                         setPasswordModal={setPasswordModal} 
-                        updateUser={updateUser}
+                        updateUser={handleUserUpdate}
                     />
                 </div>
             </div>

@@ -3,6 +3,7 @@ import {Switch, Route} from "react-router-dom"
 
 import './App.css';
 import { UserContext } from "./contexts/UserContext";
+import { FeedersProvider } from "./contexts/FeedersContext";
 import Header from "./components/Header.js"
 import UserProfile from "./components/UserProfile.js"
 import UserRevContainer from "./components/UserRevContainer";
@@ -12,60 +13,12 @@ import UserFormsContainer from "./components/UserFormsContainer";
 function App() {
 
   const {user} = useContext(UserContext)
-  const [feeders, setFeeders] = useState([])
 
-  // useEffect(() => {
-  //   fetch("/me").then((r) => {
-  //     if (r.ok) {
-  //       r.json().then((user) => setUser(user))
-  //     }
-  //   })
-  //   fetch("/feeders")
-  //   .then(r => r.json())
-  //   .then(data => setFeeders(data))
-  // }, [])
 
-  function handleUserUpdate(newUser) {
-    // let updatedUser = {
-    //   ...user,
-    //   neighborhood: newUser.neighborhood,
-    //   fun_fact: newUser.fun_fact,
-    //   password_digest: newUser.password_digest
-    // }
-    // setUser(updatedUser)
-  }
 
-  function handleRevEdit(updatedRev) {
-    // let userRevs = user.reviews.map((rev) => {
-    //   if (rev.id === updatedRev.id) {
-    //     rev = updatedRev
-    //     return rev 
-    //   }
-    //   return rev
-    // })
-    // let updatedUser = {
-    //   ...user,
-    //   reviews: userRevs
-    // }
-    // setUser(updatedUser)
-  }
 
-  function handleRevDelete(deleteID, updatedFeeder) {
-    // let updatedUser = {
-    //   ...user,
-    //   reviews: user.reviews.filter(rev => rev.id !== deleteID),
-    //   num_reviews: user.num_reviews - 1
-    // }
-    // let updatedFeeders = feeders.map((feeder) => {
-    //   if (feeder.id === updatedFeeder.id) {
-    //     feeder = updatedFeeder
-    //     return feeder 
-    //   }
-    //   return feeder
-    // })
-    // setUser(updatedUser)
-    // setFeeders(updatedFeeders)
-  }
+
+
 
   function renderFeeder(newFeeder) {
     // const moreFeeders = [newFeeder, ...feeders]
@@ -98,24 +51,21 @@ function App() {
             <Route exact path="/"> 
               <UserProfile 
                 homePage={true} 
-                updateUser={handleUserUpdate}
               />
             </Route>
+          <FeedersProvider>
             <Route path="/view_reviews">
-              <UserRevContainer 
-                // reviews={user.reviews} 
-                handleDelete={handleRevDelete}
-                handleEdit={handleRevEdit}
-              />
+              <UserRevContainer />
             </Route>
             <Route path="/find_feeder">
               <FeedersContainer 
-                feedersArr={feeders} 
-                // userID={user.id} 
-                renderFeeder={renderFeeder}
-                updateUserRevs={updateUserRevs}
+                // feedersArr={feeders} 
+                // // userID={user.id} 
+                // renderFeeder={renderFeeder}
+                // updateUserRevs={updateUserRevs}
               />
             </Route>
+          </FeedersProvider>
           </Switch>
           ) : (
           <UserFormsContainer/>
