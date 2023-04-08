@@ -1,7 +1,10 @@
-import React from "react"
+import React, {useContext} from "react"
+import { UserContext } from "../contexts/UserContext.js"
 import {useHistory} from "react-router-dom"
 
-function Logout({username, setUser}) {
+function Logout({setLoggedIn}) {
+
+    const {user, setUser} = useContext(UserContext)
 
     const history = useHistory()
 
@@ -9,7 +12,9 @@ function Logout({username, setUser}) {
         fetch("/logout", {method: "DELETE"})
         .then((r) => {
             if (r.ok) {
+                setLoggedIn(false)
                 setUser(null)
+                
                 history.push("/")
             }
         })
@@ -18,7 +23,7 @@ function Logout({username, setUser}) {
     return(
         <div id="logout">
             <h4 className="logout-text">Current user: </h4>
-            <h3 className="logout-text">{username}</h3>
+            <h3 className="logout-text">{user.username}</h3>
             {/* add mini picture */}
             <button onClick={handleLogout} className="logout-text">Logout</button>
         </div>

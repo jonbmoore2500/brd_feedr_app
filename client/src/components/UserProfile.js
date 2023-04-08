@@ -6,8 +6,8 @@ import "../modal.css"
 
 function UserProfile({homePage = false, updateUser}) {
 
-    const user = useContext(UserContext)
-
+    const {user} = useContext(UserContext)
+    console.log(user, "testing")
     const [updateModal, setUpdateModal] = useState(false)
     const [passwordModal, setPasswordModal] = useState(false)    
 
