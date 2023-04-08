@@ -1,8 +1,8 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
 import {Switch, Route} from "react-router-dom"
 
 import './App.css';
-import { UserProvider } from "./contexts/UserContext";
+import { UserContext } from "./contexts/UserContext";
 import Header from "./components/Header.js"
 import UserProfile from "./components/UserProfile.js"
 import UserRevContainer from "./components/UserRevContainer";
@@ -11,7 +11,7 @@ import UserFormsContainer from "./components/UserFormsContainer";
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false)
+  const {user} = useContext(UserContext)
   const [feeders, setFeeders] = useState([])
 
   // useEffect(() => {
@@ -91,10 +91,9 @@ function App() {
 
   return (
     <div className="App">
-      <UserProvider>
-        <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+        <Header/>
         <br></br>
-        { loggedIn ? (
+        { user ? (
           <Switch>
             <Route exact path="/"> 
               <UserProfile 
@@ -119,9 +118,8 @@ function App() {
             </Route>
           </Switch>
           ) : (
-          <UserFormsContainer setLoggedIn={setLoggedIn}/>
+          <UserFormsContainer/>
         )}
-      </UserProvider>
     </div>
   );
 }

@@ -2,13 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter as Router } from "react-router-dom";
+import { UserProvider } from "./contexts/UserContext";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <UserProvider>
+    <Router>
+      <App />
+    </Router>
+  </UserProvider>,
   document.getElementById('root')
 );
 

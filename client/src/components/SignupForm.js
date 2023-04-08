@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 
-function SignupForm({setUser, setLoggedIn}) {
+function SignupForm({setUser}) {
     const [username, setUsername] = useState("")
     const [species, setSpecies] = useState("")
     const [imgURL, setImgURL] = useState("")
@@ -36,7 +36,6 @@ function SignupForm({setUser, setLoggedIn}) {
             if (r.ok) {
                 r.json().then((user) => {
                     setUser(user)
-                    setLoggedIn(true)
                 })
             } else {
                 r.json().then((err) => setErrors(err.errors))

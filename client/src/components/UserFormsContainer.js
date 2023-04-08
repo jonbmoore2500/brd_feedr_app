@@ -4,14 +4,14 @@ import SignupForm from './SignupForm.js'
 import LoginForm from "./LoginForm.js"
 
 
-function UserFormsContainer({setLoggedIn}) {
+function UserFormsContainer() {
 
     const {setUser} = useContext(UserContext)
 
     return(
         <div id="user-forms-parent">
-            <SignupForm setUser={setUser} setLoggedIn={setLoggedIn}/>
-            <LoginForm setUser={setUser} setLoggedIn={setLoggedIn}/>
+            <SignupForm setUser={setUser}/>
+            <LoginForm setUser={setUser}/>
         </div> 
     )
 }
