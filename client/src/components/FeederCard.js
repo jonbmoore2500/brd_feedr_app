@@ -1,12 +1,11 @@
-import React, {useState, useContext} from "react"
+import React, {useState} from "react"
 import {Card} from "semantic-ui-react"
-import { UserContext } from "../contexts/UserContext.js"
 import RevForm from "./RevForm"
 
-function FeederCard({feeder, updateUserRevs}) {
-
+function FeederCard({feeder, userID}) {
+    // console.log(feeder, "feeder")
+    // console.log(userID, "userid")
     const [showReviewForm, setShowReviewForm] = useState(false)
-    const userID = useContext(UserContext).id
     
     function checkReviewable() {
         let feederReviewable = true
@@ -51,7 +50,6 @@ function FeederCard({feeder, updateUserRevs}) {
                     <div className="modal-content">
                         <RevForm 
                             feeder={feeder}  
-                            updateUserRevs={updateUserRevs} 
                             setShowReviewForm={setShowReviewForm}
                         />
                     </div>

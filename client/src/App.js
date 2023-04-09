@@ -13,34 +13,6 @@ function App() {
 
   const {user} = useContext(UserContext)
 
-
-
-
-
-
-
-  function renderFeeder(newFeeder) {
-    // const moreFeeders = [newFeeder, ...feeders]
-    // setFeeders(moreFeeders)
-  }
-
-  function updateUserRevs(newRev) {
-    // let updatedUser = {
-    //   ...user, 
-    //   reviews: [...user.reviews, newRev],
-    //   num_reviews: user.num_reviews + 1
-    // }
-    // let updatedFeeders = feeders.map((feeder) => {
-    //   if (feeder.id === newRev.feeder.id) {
-    //     feeder = newRev.feeder
-    //     return feeder 
-    //   }
-    //   return feeder
-    // })
-    // setUser(updatedUser)
-    // setFeeders(updatedFeeders)
-  }
-
   return (
     <div className="App">
         <Header/>

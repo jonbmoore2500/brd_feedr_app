@@ -9,9 +9,8 @@ import FeederSortMenu from "./FeederSortMenu"
 
 function FeedersContainer() {
     
-    const {feeders, setFeeders} = useContext(FeedersContext)
+    const {feeders} = useContext(FeedersContext)
     const {user} = useContext(UserContext)
-    console.log(feeders, "feeders")
 
     const [showForm, setShowForm] = useState(false)
     const [sortType, setSortType] = useState("namealpha")
@@ -67,6 +66,7 @@ function FeedersContainer() {
                         <FeederCard 
                             key={feeder.id} 
                             feeder={feeder} 
+                            userID={user.id}
                         />
                     ))}
                 </Card.Group>

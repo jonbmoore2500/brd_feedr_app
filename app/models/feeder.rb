@@ -10,7 +10,7 @@ class Feeder < ApplicationRecord
         if self.reviews.length == 0 then
             return 0 
         end
-        average = self.reviews.sum { |rev| rev[:rating] } / self.reviews.size
+        average = (self.reviews.sum { |rev| rev[:rating] }.to_f / self.reviews.size).round(2)
     end
 
     def num_reviews
