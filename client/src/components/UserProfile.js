@@ -77,7 +77,6 @@ function UserProfile({homePage = false}) {
             )}
         </div>
     )
-
 }
 
 export default UserProfile

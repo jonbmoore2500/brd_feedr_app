@@ -11,10 +11,8 @@ function EditRevForm({review, handleDelete, handleEdit}) {
         fetch(`/reviews/${deleteRevID}`, {method: "DELETE"})
         .then((r) => {
             if (r.ok) {
-                r.json().then(() => {
-                    handleDelete(review.id)
-                    setShowModal(false)
-                })
+                handleDelete(deleteRevID)
+                setShowModal(false)
             }
         })
     }

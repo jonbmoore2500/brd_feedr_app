@@ -28,11 +28,8 @@ class ReviewsController < ApplicationController
     def destroy
         review = @current_user.reviews.find_by(id: params[:id])
         if review
-            feeder = review.feeder
             review.destroy
-            render json: feeder, status: :ok
-            # better way to do this? need an updated feeder upon delete to update state,
-            # don't want to wait and do a second fetch
+            head :no_content
         else
             render json: { error: "Not authorized" }, status: :unauthorized
         end

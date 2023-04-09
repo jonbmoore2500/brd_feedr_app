@@ -62,8 +62,6 @@ function LoginForm({setUser}) {
             )}
         </div>
     )
-
 }
-
 
 export default LoginForm

@@ -10,8 +10,6 @@ function NavBar() {
             <NavLink to="/find_feeder" exact className="nav">Find a Feeder</NavLink>
         </div>
     )
-
-
 }
 
 export default NavBar

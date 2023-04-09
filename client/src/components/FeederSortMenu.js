@@ -23,8 +23,6 @@ function FeederSortMenu({currentSort, handleSort}) {
             </form>
         </div>
     )
-
 }
-
 
 export default FeederSortMenu

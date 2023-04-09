@@ -3,7 +3,6 @@ import {useHistory} from "react-router-dom"
 
 function Logout({user, setUser}) {
 
-
     const history = useHistory()
 
     function handleLogout() {

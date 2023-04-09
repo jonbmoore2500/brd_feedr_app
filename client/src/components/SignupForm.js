@@ -1,17 +1,17 @@
 import React, {useState} from "react"
 
 function SignupForm({setUser}) {
+    const neighborhoods = ["Uptown", "Edgewater", "Ravenswood", "The Loop", "Hyde Park", "Rogers Park", "Lakeview", "Kenwood", "Bronzeville"]
+    
     const [username, setUsername] = useState("")
     const [species, setSpecies] = useState("")
     const [imgURL, setImgURL] = useState("")
-    const [neighborhood, setNeighborhood] = useState("")
+    const [neighborhood, setNeighborhood] = useState(neighborhoods[0])
     const [funFact, setFunFact] = useState("")
     const [pWord, setPWord] = useState("")
     const [pWordConfirm, setPWordConfirm] = useState("")
 
     const [errors, setErrors] = useState([])
-
-    const neighborhoods = ["Uptown", "Edgewater", "Ravenswood", "The Loop", "Hyde Park", "Rogers Park", "Lakeview", "Kenwood", "Bronzeville"]
 
     function handleSubmitSignup(e) {
         e.preventDefault()

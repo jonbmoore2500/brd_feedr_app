@@ -3,8 +3,6 @@ import {Card} from "semantic-ui-react"
 import RevForm from "./RevForm"
 
 function FeederCard({feeder, userID}) {
-    // console.log(feeder, "feeder")
-    // console.log(userID, "userid")
     const [showReviewForm, setShowReviewForm] = useState(false)
     
     function checkReviewable() {
@@ -20,29 +18,29 @@ function FeederCard({feeder, userID}) {
 
     return(
         <Card >
-                <h2>{feeder.name}</h2>
-                <h4>Neighborhood: {feeder.neighborhood}</h4>
-                {feeder.refill_freq === 1 ? (
-                    <h4>Refilled every day</h4>
-                ) : (
-                    <h4>Refilled every {feeder.refill_freq} days</h4>
-                )}
-                {feeder.average_rating > 0 ? (
-                <>
-                    <h4>Average rating: {feeder.average_rating}</h4> 
-                    <h4>Number of reviews: {feeder.num_reviews}</h4>
-                </>
-                ) : (
-                <h4>Be the first to review this feeder!</h4>
-                )}
-                { reviewable ? (
-                <button onClick={() => setShowReviewForm(true)}>
-                    Review this feeder
-                </button>
-                ) : (
-                <h4>You've already reviewed this one!</h4>
-                )
-                }
+            <h2>{feeder.name}</h2>
+            <h4>Neighborhood: {feeder.neighborhood}</h4>
+            {feeder.refill_freq === 1 ? (
+                <h4>Refilled every day</h4>
+            ) : (
+                <h4>Refilled every {feeder.refill_freq} days</h4>
+            )}
+            {feeder.average_rating > 0 ? (
+            <>
+                <h4>Average rating: {feeder.average_rating}</h4> 
+                <h4>Number of reviews: {feeder.num_reviews}</h4>
+            </>
+            ) : (
+            <h4>Be the first to review this feeder!</h4>
+            )}
+            { reviewable ? (
+            <button onClick={() => setShowReviewForm(true)}>
+                Review this feeder
+            </button>
+            ) : (
+            <h4>You've already reviewed this one!</h4>
+            )
+            }
 
             {showReviewForm && (
                 <div className="modal">
@@ -57,8 +55,6 @@ function FeederCard({feeder, userID}) {
             )}
         </Card>
     )
-
 }
-
 
 export default FeederCard

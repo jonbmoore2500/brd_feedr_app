@@ -29,7 +29,8 @@ function EditUserForm({userNeighbor, userFunFact, userID, setUpdateModal, update
             } else {
                 r.json().then((err) => setErrors(err.errors))
             }
-          })    
+          }
+        )    
     }
 
     return(

@@ -1,7 +1,6 @@
 import React, {useState, useContext} from "react"
 import { UserContext } from "../contexts/UserContext";
 import { FeedersContext } from "../contexts/FeedersContext";
-
 import EditRevForm from "./EditRevForm"
 
 function ReviewCard({review, signedIn = false}) {
@@ -19,6 +18,21 @@ function ReviewCard({review, signedIn = false}) {
     }
     const dispStars = starsFunc(review.rating)
 
+    function feedersUpdateHelper(newRevs) {
+        let newFeedersArr = feeders.map((feeder) => {
+            if (feeder.id === revFeeder.id) {
+                let newFeeder = {...feeder}
+                newFeeder.reviews = newRevs
+                newFeeder.num_reviews = newRevs.length
+                newFeeder.average_rating = +(newRevs.map(rev => rev.rating).reduce((a,b) => a+b, 0)/(newRevs.length)).toFixed(2)
+                return newFeeder
+            } else {
+                return feeder
+            }
+        })        
+        return newFeedersArr
+    }
+
     function handleEdit(updatedRev) {
         let userRevs = user.reviews.map((rev) => {
             if (rev.id === updatedRev.id) {
@@ -27,11 +41,7 @@ function ReviewCard({review, signedIn = false}) {
             }
             return rev
         })
-        let updatedUser = {
-        ...user,
-        reviews: userRevs
-        }
-
+        let updatedUser = {...user, reviews: userRevs}
         let newFeederRevs = revFeeder.reviews.map((review) => {
             if (review.id === updatedRev.id) {
                 return updatedRev
@@ -39,16 +49,7 @@ function ReviewCard({review, signedIn = false}) {
                 return review
             }
         })
-        let updatedFeeders = feeders.map((feeder) => {
-            if (feeder.id === revFeeder.id) {
-                let newFeeder = {...feeder}
-                newFeeder.reviews = newFeederRevs
-                newFeeder.average_rating = +(newFeederRevs.map(rev => rev.rating).reduce((a,b) => a+b, 0)/(newFeederRevs.length)).toFixed(2)
-                return newFeeder
-            } else {
-                return feeder 
-            }
-        })
+        let updatedFeeders = feedersUpdateHelper(newFeederRevs)
         setUser(updatedUser)
         setFeeders(updatedFeeders)
     }
@@ -60,17 +61,7 @@ function ReviewCard({review, signedIn = false}) {
           num_reviews: user.num_reviews - 1
         }
         let newFeederRevs = revFeeder.reviews.filter((rev) => rev.id !== deleteID)
-        let updatedFeeders = feeders.map((feeder) => {
-            if (feeder.id === revFeeder.id) {
-                let newFeeder = {...feeder}
-                newFeeder.reviews = newFeederRevs
-                newFeeder.num_reviews = newFeederRevs.length
-                newFeeder.average_rating = +(newFeederRevs.map(rev => rev.rating).reduce((a,b) => a+b, 0)/(newFeederRevs.length)).toFixed(2)
-                return newFeeder
-            } else {
-                return feeder
-            }
-        })        
+        let updatedFeeders = feedersUpdateHelper(newFeederRevs)
         setUser(updatedUser)
         setFeeders(updatedFeeders)
     }
