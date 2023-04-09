@@ -1,22 +1,49 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
+import { UserContext } from "../contexts/UserContext";
+import { FeedersContext } from "../contexts/FeedersContext";
+
 import EditRevForm from "./EditRevForm"
 
-function ReviewCard({review, signedIn = false, handleDelete, handleEdit}) {
+function ReviewCard({review, signedIn = false}) {
 
     let [showFeederInfo, setShowFeederInfo] = useState(false)
-
-    let day = review.updated_at.slice(8, 10)
-    let month = review.updated_at.slice(5, 7)
-    let year = review.updated_at.slice(2, 4)
-    let date = `${month}/${day}/${year}`
+    const {user, setUser} = useContext(UserContext)
+    const {feeders, setFeeders} = useContext(FeedersContext)
+    let revFeeder = feeders.filter((feeder) => review.feeder.id === feeder.id)[0]
+    let date = `${review.updated_at.slice(5, 7)}/${review.updated_at.slice(8, 10)}/${review.updated_at.slice(2, 4)}`
 
     function starsFunc(num) {
         let solidStars = ["★", "★", "★", "★", "★"].slice(5-num)
         let hollowStars = ["☆", "☆", "☆", "☆", "☆"].slice(num)
         return solidStars.concat(hollowStars).join("")
     }
-
     const dispStars = starsFunc(review.rating)
+
+    function handleEdit(updatedRev) {
+
+    }
+
+    function handleDelete(deleteID) {
+        let updatedUser = {
+          ...user,
+          reviews: user.reviews.filter(rev => rev.id !== deleteID),
+          num_reviews: user.num_reviews - 1
+        }
+        let newFeederRevs = revFeeder.reviews.filter((rev) => rev.id !== deleteID)
+        let updatedFeeders = feeders.map((feeder) => {
+            if (feeder.id === revFeeder.id) {
+                let newFeeder = {...feeder}
+                newFeeder.reviews = newFeederRevs
+                newFeeder.num_reviews = newFeederRevs.length
+                newFeeder.average_rating = (newFeederRevs.map(rev => rev.rating).reduce((a,b) => a+b, 0)/(newFeederRevs.length)).toFixed(2)
+                return newFeeder
+            } else {
+                return feeder
+            }
+        })        
+        setUser(updatedUser)
+        setFeeders(updatedFeeders)
+    }
 
     return(
         <div className="review-card">
@@ -42,8 +69,8 @@ function ReviewCard({review, signedIn = false, handleDelete, handleEdit}) {
                 {signedIn ? (
                     <EditRevForm 
                         review={review} 
-                        handleDelete={handleDelete} 
                         handleEdit={handleEdit}
+                        handleDelete={handleDelete}
                     />
                 ) : (
                     null
