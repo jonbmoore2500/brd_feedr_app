@@ -3,6 +3,7 @@ import {Switch, Route} from "react-router-dom"
 
 import './App.css';
 import { UserContext } from "./contexts/UserContext";
+import { FeedersContext } from "./contexts/FeedersContext";
 import Header from "./components/Header.js"
 import UserProfile from "./components/UserProfile.js"
 import UserRevContainer from "./components/UserRevContainer";
@@ -12,12 +13,13 @@ import UserFormsContainer from "./components/UserFormsContainer";
 function App() {
 
   const {user} = useContext(UserContext)
+  const {feeders} = useContext(FeedersContext)
 
   return (
     <div className="App">
         <Header/>
         <br></br>
-        { user ? (
+        { user && feeders ? (
           <Switch>
             <Route exact path="/"> 
               <UserProfile 

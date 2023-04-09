@@ -50,7 +50,7 @@ function FeedersContainer() {
 
     const dispArr = handleSort(sortType)
 
-    if (feeders && user) {return(
+    return(
         <div id="feeders-container">
             <h1>See all available feeders</h1>
             <button onClick={() => setShowForm(true)}>Add a new Feeder</button>
@@ -72,9 +72,7 @@ function FeedersContainer() {
                 </Card.Group>
             </Container>
         </div>
-    )} else {
-        return <h3>loading</h3>
-    }
+    )
 }
 
 export default FeedersContainer

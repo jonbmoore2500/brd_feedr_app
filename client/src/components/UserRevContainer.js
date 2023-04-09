@@ -10,7 +10,6 @@ function UserRevContainer() {
 
     const {user, setUser} = useContext(UserContext)
     const {feeders, setFeeders} = useContext(FeedersContext)
-    console.log(feeders, "feeders in userrev")
 
     function handleRevEdit(updatedRev) {
         let userRevs = user.reviews.map((rev) => {
@@ -27,21 +26,26 @@ function UserRevContainer() {
         setUser(updatedUser)
     }
 
-    function handleRevDelete(deleteID, updatedFeeder) {
+    function handleRevDelete(deleteRevID, feederID) {
         let updatedUser = {
           ...user,
-          reviews: user.reviews.filter(rev => rev.id !== deleteID),
+          reviews: user.reviews.filter(rev => rev.id !== deleteRevID),
           num_reviews: user.num_reviews - 1
         }
         let updatedFeeders = feeders.map((feeder) => {
-          if (feeder.id === updatedFeeder.id) {
-            feeder = updatedFeeder
+          if (feeder.id === feederID) {
+            feeder = {
+                ...feeder,
+
+            }
             return feeder 
           }
           return feeder
         })
         setUser(updatedUser)
         setFeeders(updatedFeeders)
+        // handle  feeder. delete review from feeder.reviews, recalculate num_reviews, average_rating
+        // move all this to rev card or edit rev form? 
     }
     
     function handleSort() {
@@ -56,7 +60,7 @@ function UserRevContainer() {
 
     const dispRevs = handleSort()
 
-    if (user) {return(
+    return(
         <div>
             <div className="user_revs_container">
                 <div className="left_prof">
@@ -85,9 +89,7 @@ function UserRevContainer() {
                 </div>
             </div>
         </div>
-    )} else {
-        return <h3>loading</h3>
-    }
+    )
 }
 
 export default UserRevContainer

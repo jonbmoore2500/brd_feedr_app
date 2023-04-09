@@ -2,7 +2,6 @@ import React, {useState, useContext} from "react"
 import { UserContext } from "../contexts/UserContext";
 import { FeedersContext } from "../contexts/FeedersContext";
 
-
 function RevForm({feeder, setShowReviewForm}) {
 
     const {user, setUser} = useContext(UserContext)
@@ -12,7 +11,6 @@ function RevForm({feeder, setShowReviewForm}) {
     const [newRevText, setNewRevText] = useState("")
     const ratings = feeder.reviews.map(rev => rev.rating)
     const [errors, setErrors] = useState([])
-    console.log(ratings)
 
     function handleRevSubmit(e) {
         e.preventDefault()
@@ -37,10 +35,10 @@ function RevForm({feeder, setShowReviewForm}) {
                         reviews: [...user.reviews, rev],
                         num_reviews: user.num_reviews + 1
                     }
-                    console.log(user.reviews, rev, "revs test")
                     let updatedFeeders = feeders.map((feeder) => {
                         if (feeder.id === rev.feeder.id) {
-                        feeder = {...feeder, 
+                        feeder = {
+                            ...feeder, 
                             num_reviews: feeder.num_reviews + 1, 
                             average_rating: (ratings.reduce((a,b) => a+b, 0) + rev.rating)/(feeder.num_reviews+1).toFixed(2),
                             reviews: [...feeder.reviews, rev]
@@ -49,8 +47,6 @@ function RevForm({feeder, setShowReviewForm}) {
                         }
                         return feeder
                     })
-                    console.log(feeders, rev.feeder, "feeders test")
-                    console.log(updatedFeeders, "updated test")
                     setUser(updatedUser)
                     setFeeders(updatedFeeders)
                     setShowReviewForm(false)

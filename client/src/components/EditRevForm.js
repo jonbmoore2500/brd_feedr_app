@@ -7,14 +7,14 @@ function EditRevForm({review, handleDelete, handleEdit}) {
     const [errors, setErrors] = useState([])
     const [showModal, setShowModal] = useState(false)
 
-    console.log(review)
+    console.log(review, "rev form")
 
-    function handleRevDelete(deleteID) {
-        fetch(`/reviews/${deleteID}`, {method: "DELETE"})
+    function handleRevDelete(deleteRevID) {
+        fetch(`/reviews/${deleteRevID}`, {method: "DELETE"})
         .then((r) => {
             if (r.ok) {
-                r.json().then((deletedRevFeeder) => {
-                    handleDelete(deleteID, deletedRevFeeder)
+                r.json().then(() => {
+                    handleDelete(deleteRevID, review.feeder.id)
                     setShowModal(false)
                 })
             }
