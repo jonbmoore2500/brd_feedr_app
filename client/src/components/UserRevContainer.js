@@ -1,51 +1,12 @@
 import React, {useContext} from "react"
 
 import { UserContext } from "../contexts/UserContext";
-import { FeedersContext } from "../contexts/FeedersContext";
 import UserProfile from "./UserProfile"
 import ReviewCard from "./ReviewCard"
 
 function UserRevContainer() {
 
-    const {user, setUser} = useContext(UserContext)
-    const {feeders, setFeeders} = useContext(FeedersContext)
-
-    function handleRevEdit(updatedRev) {
-        // let userRevs = user.reviews.map((rev) => {
-        //   if (rev.id === updatedRev.id) {
-        //     rev = updatedRev
-        //     return rev 
-        //   }
-        //   return rev
-        // })
-        // let updatedUser = {
-        //   ...user,
-        //   reviews: userRevs
-        // }
-        // setUser(updatedUser)
-    }
-
-    function handleRevDelete(deleteRevID, feederID) {
-        // let updatedUser = {
-        //   ...user,
-        //   reviews: user.reviews.filter(rev => rev.id !== deleteRevID),
-        //   num_reviews: user.num_reviews - 1
-        // }
-        // let updatedFeeders = feeders.map((feeder) => {
-        //   if (feeder.id === feederID) {
-        //     feeder = {
-        //         ...feeder,
-
-        //     }
-        //     return feeder 
-        //   }
-        //   return feeder
-        // })
-        // setUser(updatedUser)
-        // setFeeders(updatedFeeders)
-        // // handle  feeder. delete review from feeder.reviews, recalculate num_reviews, average_rating
-        // // move all this to rev card or edit rev form? 
-    }
+    const {user} = useContext(UserContext)
     
     function handleSort() {
         let userReviews = [...user.reviews]

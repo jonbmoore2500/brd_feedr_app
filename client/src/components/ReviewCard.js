@@ -20,7 +20,37 @@ function ReviewCard({review, signedIn = false}) {
     const dispStars = starsFunc(review.rating)
 
     function handleEdit(updatedRev) {
+        let userRevs = user.reviews.map((rev) => {
+            if (rev.id === updatedRev.id) {
+              rev = updatedRev
+              return rev 
+            }
+            return rev
+        })
+        let updatedUser = {
+        ...user,
+        reviews: userRevs
+        }
 
+        let newFeederRevs = revFeeder.reviews.map((review) => {
+            if (review.id === updatedRev.id) {
+                return updatedRev
+            } else {
+                return review
+            }
+        })
+        let updatedFeeders = feeders.map((feeder) => {
+            if (feeder.id === revFeeder.id) {
+                let newFeeder = {...feeder}
+                newFeeder.reviews = newFeederRevs
+                newFeeder.average_rating = +(newFeederRevs.map(rev => rev.rating).reduce((a,b) => a+b, 0)/(newFeederRevs.length)).toFixed(2)
+                return newFeeder
+            } else {
+                return feeder 
+            }
+        })
+        setUser(updatedUser)
+        setFeeders(updatedFeeders)
     }
 
     function handleDelete(deleteID) {
@@ -35,7 +65,7 @@ function ReviewCard({review, signedIn = false}) {
                 let newFeeder = {...feeder}
                 newFeeder.reviews = newFeederRevs
                 newFeeder.num_reviews = newFeederRevs.length
-                newFeeder.average_rating = (newFeederRevs.map(rev => rev.rating).reduce((a,b) => a+b, 0)/(newFeederRevs.length)).toFixed(2)
+                newFeeder.average_rating = +(newFeederRevs.map(rev => rev.rating).reduce((a,b) => a+b, 0)/(newFeederRevs.length)).toFixed(2)
                 return newFeeder
             } else {
                 return feeder

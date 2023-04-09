@@ -12,38 +12,6 @@ function EditRevForm({review, handleDelete, handleEdit}) {
         .then((r) => {
             if (r.ok) {
                 r.json().then(() => {
-                    // let updatedUser = {
-                    //   ...user,
-                    //   reviews: user.reviews.filter(rev => rev.id !== deleteRevID),
-                    //   num_reviews: user.num_reviews - 1
-                    // }
-                    // let updatedFeeders = feeders.map((feeder) => {
-                    //     if (feeder.id === revFeeder.id) {
-                            
-                    //         // let updatedFeeder = {
-                    //         //     ...feeder,
-                    //         //     num_reviews: feeder.num_reviews - 1
-                    //         //     // reviews: feeder.reviews.filter(rev => rev.id !== deleteRevID),
-                    //         //     // average_rating: 
-                    //         //     // (revFeeder.reviews.map(rev => rev.rating).reduce((a,b) => a+b, 0) - review.rating)/(feeder.num_reviews-1).toFixed(2)
-                    //         // }
- 
-                    //     } else {
-                    //         return feeder 
-                    //     }
-                    // })
-                    // console.log(feeders)
-                    // console.log(updatedFeeders)
-                    // console.log(updatedFeeders)
-                    // delete this rev from feeder, subtract 1 from total reviews, recalculate average rating
-                    // map through feeders
-                    // if feeder.id = revFeeder.id
-                    //      filter feeder.reviews to delete this review
-                    //      return feeder
-                    // else return feeder
-
-                    // //asdf 
-
                     handleDelete(review.id)
                     setShowModal(false)
                 })
