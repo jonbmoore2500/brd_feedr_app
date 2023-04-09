@@ -1,6 +1,7 @@
 import React, {useContext} from "react"
 
 import { UserContext } from "../contexts/UserContext";
+import { FeedersContext } from "../contexts/FeedersContext";
 
 import UserProfile from "./UserProfile"
 import ReviewCard from "./ReviewCard"
@@ -8,6 +9,7 @@ import ReviewCard from "./ReviewCard"
 function UserRevContainer() {
 
     const {user, setUser} = useContext(UserContext)
+    const {feeders, setFeeders} = useContext(FeedersContext)
 
     function handleRevEdit(updatedRev) {
         let userRevs = user.reviews.map((rev) => {
@@ -25,20 +27,20 @@ function UserRevContainer() {
     }
 
     function handleRevDelete(deleteID, updatedFeeder) {
-        // let updatedUser = {
-        //   ...user,
-        //   reviews: user.reviews.filter(rev => rev.id !== deleteID),
-        //   num_reviews: user.num_reviews - 1
-        // }
-        // let updatedFeeders = feeders.map((feeder) => {
-        //   if (feeder.id === updatedFeeder.id) {
-        //     feeder = updatedFeeder
-        //     return feeder 
-        //   }
-        //   return feeder
-        // })
-        // setUser(updatedUser)
-        // setFeeders(updatedFeeders)
+        let updatedUser = {
+          ...user,
+          reviews: user.reviews.filter(rev => rev.id !== deleteID),
+          num_reviews: user.num_reviews - 1
+        }
+        let updatedFeeders = feeders.map((feeder) => {
+          if (feeder.id === updatedFeeder.id) {
+            feeder = updatedFeeder
+            return feeder 
+          }
+          return feeder
+        })
+        setUser(updatedUser)
+        setFeeders(updatedFeeders)
     }
     
     function handleSort() {

@@ -23,7 +23,7 @@ function UserProfile({homePage = false}) {
     return (
         <div>
             <div className="user-info">
-                <img src={user.img_url} alt="chickadee" id="prof_pic"/>
+                <img src={user.img_url} alt="user profile pic" id="prof_pic"/>
                 <h1>Username: {user.username}</h1>
                 <h3>Species: {user.species}</h3>
                 <h3>Neighborhood: {user.neighborhood}</h3>
