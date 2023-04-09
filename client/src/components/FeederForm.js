@@ -1,13 +1,14 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
+import { FeedersContext } from "../contexts/FeedersContext.js"
 
-function FeederForm({showForm, renderFeeder}) {
+function FeederForm({showForm}) {
 
+    const {feeders, setFeeders} = useContext(FeedersContext)
     const [feederName, setFeederName] = useState("")
     const [feederNeighborhood, setFeederNeighborhood] = useState("")
     const [feederFreq, setFeederFreq] = useState(0)
     const [errors, setErrors] = useState([])
     const neighborhoods = ["Uptown", "Edgewater", "Ravenswood", "The Loop", "Hyde Park", "Rogers Park", "Lakeview", "Kenwood", "Bronzeville"]
-
 
     function handleFeederSubmit(e) {
         e.preventDefault()
@@ -25,9 +26,9 @@ function FeederForm({showForm, renderFeeder}) {
         })
         .then((r) => {
             if (r.ok) {
-              r.json().then((feederData) => {
-                // console.log(feederData)
-                renderFeeder(feederData)
+              r.json().then((newFeederData) => {
+                const moreFeeders = [newFeederData, ...feeders]
+                setFeeders(moreFeeders)
                 showForm(false)
               })
             } else {
@@ -73,8 +74,6 @@ function FeederForm({showForm, renderFeeder}) {
             </button>
         </div>
     )
-
 }
-
 
 export default FeederForm

@@ -10,6 +10,7 @@ function UserRevContainer() {
 
     const {user, setUser} = useContext(UserContext)
     const {feeders, setFeeders} = useContext(FeedersContext)
+    console.log(feeders, "feeders in userrev")
 
     function handleRevEdit(updatedRev) {
         let userRevs = user.reviews.map((rev) => {
@@ -55,7 +56,7 @@ function UserRevContainer() {
 
     const dispRevs = handleSort()
 
-    return(
+    if (user) {return(
         <div>
             <div className="user_revs_container">
                 <div className="left_prof">
@@ -84,7 +85,9 @@ function UserRevContainer() {
                 </div>
             </div>
         </div>
-    )
+    )} else {
+        return <h3>loading</h3>
+    }
 }
 
 export default UserRevContainer

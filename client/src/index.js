@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter as Router } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
+import { FeedersProvider } from './contexts/FeedersContext';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <UserProvider>
+    <FeedersProvider>
     <Router>
       <App />
     </Router>
+    </FeedersProvider>
   </UserProvider>,
   document.getElementById('root')
 );

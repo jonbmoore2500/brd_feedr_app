@@ -6,11 +6,6 @@ function FeedersProvider({children}) {
 
     const [feeders, setFeeders] = useState(null)
     useEffect(() => {
-        // fetch("/me").then((r) => {
-        //   if (r.ok) {
-        //     r.json().then((user) => setUser(user))
-        //   }
-        // })
         fetch("/feeders")
         .then(r => r.json())
         .then(data => setFeeders(data))

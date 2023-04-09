@@ -1,9 +1,8 @@
-import React, {useState, useContext} from "react"
+import React, {useContext} from "react"
 import {Switch, Route} from "react-router-dom"
 
 import './App.css';
 import { UserContext } from "./contexts/UserContext";
-import { FeedersProvider } from "./contexts/FeedersContext";
 import Header from "./components/Header.js"
 import UserProfile from "./components/UserProfile.js"
 import UserRevContainer from "./components/UserRevContainer";
@@ -53,19 +52,12 @@ function App() {
                 homePage={true} 
               />
             </Route>
-          <FeedersProvider>
             <Route path="/view_reviews">
               <UserRevContainer />
             </Route>
             <Route path="/find_feeder">
-              <FeedersContainer 
-                // feedersArr={feeders} 
-                // // userID={user.id} 
-                // renderFeeder={renderFeeder}
-                // updateUserRevs={updateUserRevs}
-              />
+              <FeedersContainer />
             </Route>
-          </FeedersProvider>
           </Switch>
           ) : (
           <UserFormsContainer/>

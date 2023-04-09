@@ -11,9 +11,6 @@ function UserProvider({children}) {
             r.json().then((user) => setUser(user))
           }
         })
-        // fetch("/feeders")
-        // .then(r => r.json())
-        // .then(data => setFeeders(data))
       }, [])
 
     return <UserContext.Provider value={{user, setUser}}>{children}</UserContext.Provider>
