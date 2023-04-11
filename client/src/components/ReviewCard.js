@@ -6,7 +6,7 @@ import EditRevForm from "./EditRevForm"
 function ReviewCard({review, signedIn = false}) {
 
     let [showFeederInfo, setShowFeederInfo] = useState(false)
-    const {user, setUser} = useContext(UserContext)
+    const {user, setUser, userRevsUpdateHelper} = useContext(UserContext)
     const {setFeeders, findFeeder, feedersUpdateHelper} = useContext(FeedersContext)
     let revFeeder = findFeeder(review.feeder.id) // this review's feeder
     let date = `${review.updated_at.slice(5, 7)}/${review.updated_at.slice(8, 10)}/${review.updated_at.slice(2, 4)}`
@@ -19,14 +19,14 @@ function ReviewCard({review, signedIn = false}) {
     const dispStars = starsFunc(review.rating)
 
     function handleEdit(updatedRev) {
-        let userRevs = user.reviews.map((rev) => {
+        let newUserRevs = user.reviews.map((rev) => {
             if (rev.id === updatedRev.id) {
               rev = updatedRev
               return rev 
             }
             return rev
         })
-        let updatedUser = {...user, reviews: userRevs}
+        let updatedUser = userRevsUpdateHelper(newUserRevs)
         let newFeederRevs = revFeeder.reviews.map((review) => {
             if (review.id === updatedRev.id) {
                 return updatedRev
@@ -40,13 +40,8 @@ function ReviewCard({review, signedIn = false}) {
     }
 
     function handleDelete(deleteID) {
-        let updatedUser = {
-          ...user,
-          reviews: user.reviews.filter(rev => rev.id !== deleteID),
-          num_reviews: user.num_reviews - 1
-        }
-        let newFeederRevs = revFeeder.reviews.filter((rev) => rev.id !== deleteID)
-        let updatedFeeders = feedersUpdateHelper(newFeederRevs, revFeeder.id)
+        let updatedUser = userRevsUpdateHelper(user.reviews.filter(rev => rev.id !== deleteID))
+        let updatedFeeders = feedersUpdateHelper(revFeeder.reviews.filter((rev) => rev.id !== deleteID), revFeeder.id)
         setUser(updatedUser)
         setFeeders(updatedFeeders)
     }

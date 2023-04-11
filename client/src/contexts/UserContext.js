@@ -13,7 +13,16 @@ function UserProvider({children}) {
         })
       }, [])
 
-    return <UserContext.Provider value={{user, setUser}}>{children}</UserContext.Provider>
+    function userRevsUpdateHelper(newRevsArr) {
+      let newUser = {
+        ...user,
+        reviews: newRevsArr,
+        num_reviews: newRevsArr.length
+      }
+      return newUser
+    }
+
+    return <UserContext.Provider value={{user, setUser, userRevsUpdateHelper}}>{children}</UserContext.Provider>
 }
 
 export {UserContext, UserProvider}

@@ -4,7 +4,7 @@ import { FeedersContext } from "../contexts/FeedersContext";
 
 function RevForm({feeder, setShowReviewForm}) {
 
-    const {user, setUser} = useContext(UserContext)
+    const {user, setUser, userRevsUpdateHelper} = useContext(UserContext)
     const {setFeeders, feedersUpdateHelper} = useContext(FeedersContext)
     
     const [newRating, setNewRating] = useState("")
@@ -29,11 +29,7 @@ function RevForm({feeder, setShowReviewForm}) {
         .then((r) => {
             if (r.ok) {
                 r.json().then((rev) => {
-                    let updatedUser = {
-                        ...user, 
-                        reviews: [...user.reviews, rev],
-                        num_reviews: user.num_reviews + 1
-                    }
+                    let updatedUser = userRevsUpdateHelper([...user.reviews, rev])
                     let updatedFeeders = feedersUpdateHelper([...feeder.reviews, rev], feeder.id)
                     setUser(updatedUser)
                     setFeeders(updatedFeeders)
