@@ -7,8 +7,8 @@ function ReviewCard({review, signedIn = false}) {
 
     let [showFeederInfo, setShowFeederInfo] = useState(false)
     const {user, setUser} = useContext(UserContext)
-    const {feeders, setFeeders} = useContext(FeedersContext)
-    let revFeeder = feeders.filter((feeder) => review.feeder.id === feeder.id)[0]
+    const {setFeeders, findFeeder, feedersUpdateHelper} = useContext(FeedersContext)
+    let revFeeder = findFeeder(review.feeder.id) // this review's feeder
     let date = `${review.updated_at.slice(5, 7)}/${review.updated_at.slice(8, 10)}/${review.updated_at.slice(2, 4)}`
 
     function starsFunc(num) {
@@ -17,21 +17,6 @@ function ReviewCard({review, signedIn = false}) {
         return solidStars.concat(hollowStars).join("")
     }
     const dispStars = starsFunc(review.rating)
-
-    function feedersUpdateHelper(newRevs) {
-        let newFeedersArr = feeders.map((feeder) => {
-            if (feeder.id === revFeeder.id) {
-                let newFeeder = {...feeder}
-                newFeeder.reviews = newRevs
-                newFeeder.num_reviews = newRevs.length
-                newFeeder.average_rating = +(newRevs.map(rev => rev.rating).reduce((a,b) => a+b, 0)/(newRevs.length)).toFixed(2)
-                return newFeeder
-            } else {
-                return feeder
-            }
-        })        
-        return newFeedersArr
-    }
 
     function handleEdit(updatedRev) {
         let userRevs = user.reviews.map((rev) => {
@@ -49,7 +34,7 @@ function ReviewCard({review, signedIn = false}) {
                 return review
             }
         })
-        let updatedFeeders = feedersUpdateHelper(newFeederRevs)
+        let updatedFeeders = feedersUpdateHelper(newFeederRevs, revFeeder.id)
         setUser(updatedUser)
         setFeeders(updatedFeeders)
     }

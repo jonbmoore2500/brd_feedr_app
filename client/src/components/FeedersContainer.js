@@ -9,42 +9,30 @@ import FeederSortMenu from "./FeederSortMenu"
 
 function FeedersContainer() {
     
-    const {feeders} = useContext(FeedersContext)
+    const {feeders, sortFeeders} = useContext(FeedersContext)
     const {user} = useContext(UserContext)
 
     const [showForm, setShowForm] = useState(false)
     const [sortType, setSortType] = useState("namealpha")
 
-    function handleSortChange(newSort) {
-        setSortType(newSort)
-    }
-
-    function helperSort(array, direction, sortField) {
-        let sorted = array.sort(function (a, b) {
-            if (a[sortField] < b[sortField]) {return -1 * direction} 
-            if (a[sortField] > b[sortField]) {return direction}
-            return 0})
-        return sorted
-    }
-
     function handleSort(sortType) {
         if (sortType === "namealpha") {
             // alphabetical a-z
-            return helperSort(feeders, 1, "name")
+            return sortFeeders(1, "name")
         } else if (sortType === "namezeta") {
             // alphabetical z-a
-            return helperSort(feeders, -1, "name")
+            return sortFeeders(-1, "name")
         } else if (sortType === "neighbor") {
             // home neighborhood, then other neighborhoods alphabetically
             let homeFeeders = feeders.filter(feeder => feeder.neighborhood === user.neighborhood)
-            let otherFeeders = helperSort(feeders.filter(feeder => feeder.neighborhood !== user.neighborhood), 1, "neighborhood")
+            let otherFeeders = sortFeeders(1, "neighborhood", user.neighborhood)
             return [...homeFeeders, ...otherFeeders]
         } else if (sortType === "ratingzeta") {
             // rating high to low
-            return helperSort(feeders, 1, "average_rating")
+            return sortFeeders(1, "average_rating")
         } else {
             // rating low to high
-            return helperSort(feeders, -1, "average_rating")
+            return sortFeeders(-1, "average_rating")
         } 
     }
 
@@ -59,7 +47,7 @@ function FeedersContainer() {
             ) : (
                 null
             )}
-            <FeederSortMenu currentSort={sortType} handleSort={handleSortChange}/>
+            <FeederSortMenu currentSort={sortType} handleSort={setSortType}/>
             <Container>
                 <Card.Group itemsPerRow={3}>
                     {dispArr.map((feeder) => (
