@@ -6,19 +6,9 @@ import "../modal.css"
 
 function UserProfile({homePage = false}) {
 
-    const {user, setUser} = useContext(UserContext)
+    const {user} = useContext(UserContext)
     const [updateModal, setUpdateModal] = useState(false)
     const [passwordModal, setPasswordModal] = useState(false)    
-
-    function handleUserUpdate(newUser) {
-        let updatedUser = {
-          ...user,
-          neighborhood: newUser.neighborhood,
-          fun_fact: newUser.fun_fact,
-          password_digest: newUser.password_digest
-        }
-        setUser(updatedUser)
-    }
 
     return (
         <div>
@@ -54,11 +44,7 @@ function UserProfile({homePage = false}) {
                     <div onClick={() => setUpdateModal(false)} className="overlay"></div> 
                     <div className="modal-content">
                         <EditUserForm 
-                            userNeighbor={user.neighborhood} 
-                            userFunFact={user.fun_fact}
-                            userID={user.id} 
                             setUpdateModal={setUpdateModal} 
-                            updateUser={handleUserUpdate}
                         />
                     </div>
                 </div>
@@ -68,9 +54,7 @@ function UserProfile({homePage = false}) {
                 <div onClick={() => setPasswordModal(false)} className="overlay"></div> 
                 <div className="modal-content">
                     <EditUserPWForm 
-                        userID={user.id} 
                         setPasswordModal={setPasswordModal} 
-                        updateUser={handleUserUpdate}
                     />
                 </div>
             </div>

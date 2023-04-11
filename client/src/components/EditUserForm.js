@@ -1,9 +1,11 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
+import { UserContext } from "../contexts/UserContext"
 
-function EditUserForm({userNeighbor, userFunFact, userID, setUpdateModal, updateUser}) {
+function EditUserForm({setUpdateModal}) {
 
-    const [neighborhood, setNeighborhood] = useState(userNeighbor)
-    const [funFact, setFunFact] = useState(userFunFact)
+    const {user, setUser} = useContext(UserContext)
+    const [neighborhood, setNeighborhood] = useState(user.neighborhood)
+    const [funFact, setFunFact] = useState(user.fun_fact)
     const [errors, setErrors] = useState([])
 
     const neighborhoods = ["Uptown", "Edgewater", "Ravenswood", "The Loop", "Hyde Park", "Rogers Park", "Lakeview", "Kenwood", "Bronzeville"]
@@ -15,7 +17,7 @@ function EditUserForm({userNeighbor, userFunFact, userID, setUpdateModal, update
             neighborhood: neighborhood,
             fun_fact: funFact
         }
-        fetch(`/birds/${userID}`, {
+        fetch(`/birds/${user.id}`, {
             method: "PATCH",
             headers: {
               'Content-Type': 'application/json'
@@ -24,7 +26,7 @@ function EditUserForm({userNeighbor, userFunFact, userID, setUpdateModal, update
           })
           .then((r) => {
             if (r.ok) {
-                r.json().then((user) => updateUser(user)) 
+                r.json().then((newUser) => setUser(newUser)) 
                 setUpdateModal(false)
             } else {
                 r.json().then((err) => setErrors(err.errors))
@@ -37,7 +39,7 @@ function EditUserForm({userNeighbor, userFunFact, userID, setUpdateModal, update
         <>
             <h3>Update your profile</h3>
             <form onSubmit={handleUpdateUser}>
-                <select onChange={(e) => setNeighborhood(e.target.value)} defaultValue={userNeighbor}>
+                <select onChange={(e) => setNeighborhood(e.target.value)} defaultValue={user.neighborhood}>
                     {neighborhoods.map((neighbor) => (
                         <option key={neighbor} value={neighbor}>{neighbor}</option>
                     ))}

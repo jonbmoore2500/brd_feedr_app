@@ -1,7 +1,9 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
+import { UserContext } from "../contexts/UserContext"
 
-function EditUserPWForm({userID, setPasswordModal, updateUser}) {
+function EditUserPWForm({setPasswordModal}) {
 
+    const {user, setUser} = useContext(UserContext)
     const [newPWord, setNewPWord] = useState("")
     const [newPWordConfirm, setNewPWordConfirm] = useState("")
     const [oldPWord, setOldPWord] = useState("")
@@ -15,7 +17,7 @@ function EditUserPWForm({userID, setPasswordModal, updateUser}) {
             password_confirmation: newPWordConfirm,
             old_password: oldPWord
         }
-        fetch(`/birds/${userID}`, {
+        fetch(`/birds/${user.id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'
@@ -24,7 +26,7 @@ function EditUserPWForm({userID, setPasswordModal, updateUser}) {
         })
         .then((r) => {
             if (r.ok) {
-                r.json().then((user) => updateUser(user)) 
+                r.json().then((user) => setUser(user)) 
                 setPasswordModal(false)
             } else {
                 r.json().then((err) => setErrors(err.errors))
