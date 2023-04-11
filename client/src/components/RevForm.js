@@ -5,11 +5,10 @@ import { FeedersContext } from "../contexts/FeedersContext";
 function RevForm({feeder, setShowReviewForm}) {
 
     const {user, setUser} = useContext(UserContext)
-    const {feeders, setFeeders} = useContext(FeedersContext)
+    const {setFeeders, feedersUpdateHelper} = useContext(FeedersContext)
     
     const [newRating, setNewRating] = useState("")
     const [newRevText, setNewRevText] = useState("")
-    const ratings = feeder.reviews.map(rev => rev.rating)
     const [errors, setErrors] = useState([])
 
     function handleRevSubmit(e) {
@@ -35,18 +34,7 @@ function RevForm({feeder, setShowReviewForm}) {
                         reviews: [...user.reviews, rev],
                         num_reviews: user.num_reviews + 1
                     }
-                    let updatedFeeders = feeders.map((feeder) => {
-                        if (feeder.id === rev.feeder.id) {
-                        feeder = {
-                            ...feeder, 
-                            num_reviews: feeder.num_reviews + 1, 
-                            average_rating: (ratings.reduce((a,b) => a+b, 0) + rev.rating)/(feeder.num_reviews+1).toFixed(2),
-                            reviews: [...feeder.reviews, rev]
-                        }
-                        return feeder 
-                        }
-                        return feeder
-                    })
+                    let updatedFeeders = feedersUpdateHelper([...feeder.reviews, rev], feeder.id)
                     setUser(updatedUser)
                     setFeeders(updatedFeeders)
                     setShowReviewForm(false)

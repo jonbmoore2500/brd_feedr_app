@@ -46,7 +46,7 @@ function ReviewCard({review, signedIn = false}) {
           num_reviews: user.num_reviews - 1
         }
         let newFeederRevs = revFeeder.reviews.filter((rev) => rev.id !== deleteID)
-        let updatedFeeders = feedersUpdateHelper(newFeederRevs)
+        let updatedFeeders = feedersUpdateHelper(newFeederRevs, revFeeder.id)
         setUser(updatedUser)
         setFeeders(updatedFeeders)
     }
