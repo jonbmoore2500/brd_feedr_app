@@ -6,7 +6,7 @@ This is the "brd feedr" app, fulfilling the requirements of my Phase 4 project a
 
 It acts kind of like Yelp for birds, allowing Bird users to create, explore, and create Reviews for Bird Feeders (all of which are named for restaurants in Chicago), and then view, edit, and delete the Reviews that they have made. While a Bird at the moment cannot view specific Reviews that other Birds have made, they can view the total number of Reviews for each Feeder, as well as the average rating.
 
-More features will be coming!
+More features (such as viewing other Birds' profiles) will be coming!
 
 ### Sessions and Cookies
 
@@ -33,19 +33,18 @@ $ npm start
 
 ### Client
 
-brd feedr utilizes a React client, incorporating Client-Side Routing to separately render a user's Home Page, a user's Reviews, and all the Feeders.
+brd feedr utilizes a React client, incorporating Client-Side Routing to separately render a user's Home Page, a user's Reviews, and all the Feeders. On logging out useHistory returns to the Home Page route, making sure that the next user to log in will view the proper component upon logging in.
 
 #### Components
 
 App
- - handles vast majority of fetch requests, including all GET requests upon loading
- - holds main user and feeder data in state to pass down into other components, handles updating state for that data as necessary
+ - base component, contains Header and all Routes. Conditionally renders all Route components upon successful fetch of user and feeders in their respective Context components
 
 SignupForm
- - allows a new user to create a profile, automatically logs them in if it passes all validations
+ - allows a new user to create a profile
 
 LoginForm
- - allows an existing user to log in with their useraname and password
+ - allows an existing user to log in with their username and password
 
 Header
  - contains app title
@@ -87,7 +86,7 @@ FeederForm
  - allows the user to create a new Feeder
 
 FeederSortMenu
- - allows the user to choose how they'd like the FeederCards to be displayed (alphabetically, by neighborhood, by rating, etc)
+ - allows the user to choose how they'd like the FeederCards to be displayed (alphabetically, by neighborhood, by rating, etc). The function that performs the actual sort is contained in FeedersContext
 
 FeederCard
  - displays info about each Feeder
@@ -104,7 +103,7 @@ The UserContext provides the User object, along with the reviews belonging to th
 
 The FeederContext provides an array containing all the Feeders, including those that the User has not reviewed. Much like UserContext it contains a number of functions relating to the Feeder array in order to streamline the assorted components that use the array. Notably, it handles the processes of sorting the Feeders based on certain inputs from the sort menu, finding and returning a feeder from its ID, adding new feeders to the array, and updating the related Reviews information whenever a User creates, updates, or deletes one of their reviews. 
 
-The Context Provider wraps the App component in index.js, allowing App to access the global state and 
+The Context Providers wrap the App component in index.js, allowing App to access the global state and render the assorted Routes upon successfully fetching both sets of data. 
 
 ### Server
 
