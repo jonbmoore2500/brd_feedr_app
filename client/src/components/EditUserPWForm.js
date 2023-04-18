@@ -26,7 +26,7 @@ function EditUserPWForm({setPasswordModal}) {
         })
         .then((r) => {
             if (r.ok) {
-                r.json().then((user) => setUser(user)) 
+                r.json().then((newUser) => setUser({...newUser, reviews: user.reviews})) 
                 setPasswordModal(false)
             } else {
                 r.json().then((err) => setErrors(err.errors))

@@ -26,7 +26,7 @@ function EditUserForm({setUpdateModal}) {
           })
           .then((r) => {
             if (r.ok) {
-                r.json().then((newUser) => setUser(newUser)) 
+                r.json().then((newUser) => setUser({...newUser, reviews: user.reviews})) 
                 setUpdateModal(false)
             } else {
                 r.json().then((err) => setErrors(err.errors))

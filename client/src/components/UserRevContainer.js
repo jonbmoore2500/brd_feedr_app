@@ -7,7 +7,7 @@ import ReviewCard from "./ReviewCard"
 function UserRevContainer() {
 
     const {user} = useContext(UserContext)
-    
+
     function handleSort() {
         let userReviews = [...user.reviews]
         userReviews = userReviews.sort(function (a, b) {
