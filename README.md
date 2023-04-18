@@ -96,6 +96,16 @@ FeederCard
 RevForm
  - allows the user to create a Review for a given Feeder
 
+#### Context
+
+This app includes 2 context components in order to incorporate global state - one for User data and one for Feeder data.
+
+The UserContext provides the User object, along with the reviews belonging to that user, to other components as needed. It also contains the functions responsible for updating User state whenever the User creates, updates, or deletes a review, allowing for up-to-date info on the number of reviews the user has created and details for each of those reviews. 
+
+The FeederContext provides an array containing all the Feeders, including those that the User has not reviewed. Much like UserContext it contains a number of functions relating to the Feeder array in order to streamline the assorted components that use the array. Notably, it handles the processes of sorting the Feeders based on certain inputs from the sort menu, finding and returning a feeder from its ID, adding new feeders to the array, and updating the related Reviews information whenever a User creates, updates, or deletes one of their reviews. 
+
+The Context Provider wraps the App component in index.js, allowing App to access the global state and 
+
 ### Server
 
 bird feedr uses Ruby on Rails as an API, serving JSON data to the React front end. It uses PostreSQL as a database system in order to facilitate deployment using Render.

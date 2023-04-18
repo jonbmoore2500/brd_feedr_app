@@ -1,6 +1,7 @@
 class BirdsController < ApplicationController
     wrap_parameters format: []
     before_action :authorize, only: [:update, :show]
+    # rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable
 
     def create
         bird = Bird.create(bird_params)
@@ -26,19 +27,10 @@ class BirdsController < ApplicationController
         bird = Bird.find_by(id: params[:id])
         if bird.id == @current_user.id
             if params.include? :old_password 
-                if bird.authenticate(params[:old_password])
-                    bird.update(password_params)
-                    if bird.valid?
-                        render json: bird, status: :created
-                    else
-                        render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
-                    end
-                else
-                    render json: { errors: ["Incorrect old password"] }, status: :unauthorized
-                end
+                response_array = bird.update_pw(password_params, params[:old_password])
+                render json: response_array[0], status: response_array[1]
             else
-                bird.update(update_params)
-                if bird.valid?
+                if bird.update(update_params)
                     render json: bird, status: :created
                 else
                     render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
@@ -62,4 +54,10 @@ class BirdsController < ApplicationController
     def password_params
         params.permit(:id, :password, :password_confirmation)
     end
+
+    # def render_unprocessable(invalid)
+    #     # byebug
+    #     render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+    # def
+
 end

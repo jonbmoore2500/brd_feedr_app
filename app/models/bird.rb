@@ -19,4 +19,16 @@ class Bird < ApplicationRecord
         total_reviews.length()
     end
 
+    def update_pw(params, old_pw)
+        if self.authenticate(old_pw)
+            if self.update(params)
+                [self, :created]
+            else
+                [{errors: self.errors.full_messages}, :unprocessable_entity]
+            end
+        else
+            [{errors: ["Incorrect old password"]}, :unauthorized]
+        end
+    end
+
 end
