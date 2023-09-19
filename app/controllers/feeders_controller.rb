@@ -16,6 +16,12 @@ class FeedersController < ApplicationController
         end
     end
 
+    def xmany
+        feeders = Feeder.all.filter {|f| f.reviews.length >= params[:num].to_i}
+        render json: feeders
+    end
+    # pro tip learn ruby names for methods
+
     private 
 
     def feeder_params

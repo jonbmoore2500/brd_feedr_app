@@ -1,4 +1,4 @@
-class Bird < ApplicationRecord
+class User < ApplicationRecord
     has_many :reviews
     has_many :feeders, through: :reviews
 

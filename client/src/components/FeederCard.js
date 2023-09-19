@@ -7,8 +7,8 @@ function FeederCard({feeder, userID}) {
     
     function checkReviewable() {
         let feederReviewable = true
-        let birdIDs = feeder.reviews.map(rev => rev.bird_id)
-        if (birdIDs.includes(userID)) {
+        let userIDs = feeder.reviews.map(rev => rev.user_id)
+        if (userIDs.includes(userID)) {
             feederReviewable = false
         }
         return feederReviewable

@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
     before_action :authorize, only: [:destroy]
     
     def create
-        user = Bird.find_by(username: params[:username])
+        user = User.find_by(username: params[:username])
         if user&.authenticate(params[:password])
             session[:user_id] = user.id 
             render json: user, status: :created, include: ['reviews', 'reviews.feeder']

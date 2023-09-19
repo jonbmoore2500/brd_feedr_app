@@ -17,7 +17,7 @@ function EditUserForm({setUpdateModal}) {
             neighborhood: neighborhood,
             fun_fact: funFact
         }
-        fetch(`/birds/${user.id}`, {
+        fetch(`/users/${user.id}`, {
             method: "PATCH",
             headers: {
               'Content-Type': 'application/json'

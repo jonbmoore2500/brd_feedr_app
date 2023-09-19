@@ -17,7 +17,7 @@ function EditUserPWForm({setPasswordModal}) {
             password_confirmation: newPWordConfirm,
             old_password: oldPWord
         }
-        fetch(`/birds/${user.id}`, {
+        fetch(`/users/${user.id}`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'

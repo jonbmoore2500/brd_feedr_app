@@ -1,22 +1,22 @@
-class BirdsController < ApplicationController
+class UsersController < ApplicationController
     wrap_parameters format: []
     before_action :authorize, only: [:update, :show]
     # rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable
 
     def create
-        bird = Bird.create(bird_params)
-        if bird.valid?
-            session[:user_id] = bird.id
-            render json: bird, status: :created
+        user = User.create(user_params)
+        if user.valid?
+            session[:user_id] = user.id
+            render json: user, status: :created
         else
-            render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
+            render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
         end
     end
    
     ## for dev purposes
     # def index 
-    #     birds = Bird.all 
-    #     render json: birds
+    #     users = User.all 
+    #     render json: users
     # end
 
     def show
@@ -24,16 +24,16 @@ class BirdsController < ApplicationController
     end
 
     def update
-        bird = Bird.find_by(id: params[:id])
-        if bird.id == @current_user.id
+        user = User.find_by(id: params[:id])
+        if user.id == @current_user.id
             if params.include? :old_password 
-                response_array = bird.update_pw(password_params, params[:old_password])
+                response_array = user.update_pw(password_params, params[:old_password])
                 render json: response_array[0], status: response_array[1]
             else
-                if bird.update(update_params)
-                    render json: bird, status: :created
+                if user.update(update_params)
+                    render json: user, status: :created
                 else
-                    render json: {errors: bird.errors.full_messages}, status: :unprocessable_entity
+                    render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
                 end
             end
         else
@@ -43,7 +43,7 @@ class BirdsController < ApplicationController
 
     private
 
-    def bird_params
+    def user_params
         params.permit(:username, :species, :img_url, :neighborhood, :fun_fact, :password, :password_confirmation)
     end
 
