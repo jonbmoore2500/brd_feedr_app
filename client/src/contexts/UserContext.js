@@ -22,6 +22,8 @@ function UserProvider({children}) {
       return newUser
     }
 
+    console.log("user", user)
+
     return <UserContext.Provider value={{user, setUser, userRevsUpdateHelper}}>{children}</UserContext.Provider>
 }
 

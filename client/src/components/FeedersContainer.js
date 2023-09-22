@@ -40,14 +40,14 @@ function FeedersContainer() {
 
     return(
         <div id="feeders-container">
-            <h1>See all available feeders</h1>
-            <button onClick={() => setShowForm(true)}>Add a new Feeder</button>
+            {/* <button onClick={() => setShowForm(true)}>Add a new Feeder</button>
             {showForm ? (
                 <FeederForm showForm={setShowForm} />
             ) : (
                 null
-            )}
+            )} */}
             <FeederSortMenu currentSort={sortType} handleSort={setSortType}/>
+            <h4>Click on a Feeder name for more info</h4>
             <Container>
                 <Card.Group itemsPerRow={3}>
                     {dispArr.map((feeder) => (
@@ -57,6 +57,7 @@ function FeedersContainer() {
                             userID={user.id}
                         />
                     ))}
+                    <Card />
                 </Card.Group>
             </Container>
         </div>

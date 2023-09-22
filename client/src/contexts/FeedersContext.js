@@ -41,6 +41,8 @@ function FeedersProvider({children}) {
         return 0})
     }
 
+    console.log("feeders", feeders)
+
   return <FeedersContext.Provider value={{feeders, setFeeders, findFeeder, feedersUpdateHelper, sortFeeders}}>{children}</FeedersContext.Provider>
 }
 

@@ -12,5 +12,3 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 end
-
-# pro tip - write new routes - put at top to make sure it gets caught

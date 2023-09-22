@@ -9,6 +9,7 @@ import UserProfile from "./components/UserProfile.js"
 import UserRevContainer from "./components/UserRevContainer";
 import FeedersContainer from "./components/FeedersContainer"
 import UserFormsContainer from "./components/UserFormsContainer";
+import FeederPage from "./components/FeederPage";
 
 function App() {
 
@@ -31,6 +32,9 @@ function App() {
             </Route>
             <Route path="/find_feeder">
               <FeedersContainer />
+            </Route>
+            <Route path="/feeders/:feedID" >
+              <FeederPage />
             </Route>
           </Switch>
           ) : (

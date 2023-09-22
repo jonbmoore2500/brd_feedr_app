@@ -1,24 +1,25 @@
 import React, {useState} from "react"
+import {Link} from "react-router-dom"
 import {Card} from "semantic-ui-react"
 import RevForm from "./RevForm"
 
 function FeederCard({feeder, userID}) {
     const [showReviewForm, setShowReviewForm] = useState(false)
     
-    function checkReviewable() {
-        let feederReviewable = true
-        let userIDs = feeder.reviews.map(rev => rev.user_id)
-        if (userIDs.includes(userID)) {
-            feederReviewable = false
-        }
-        return feederReviewable
-    }
+    // function checkReviewable() {
+    //     let feederReviewable = true
+    //     let userIDs = feeder.reviews.map(rev => rev.user_id)
+    //     if (userIDs.includes(userID)) {
+    //         feederReviewable = false
+    //     }
+    //     return feederReviewable
+    // }
     
-    let reviewable = checkReviewable()
+    // let reviewable = checkReviewable()
 
     return(
         <Card >
-            <h2>{feeder.name}</h2>
+            <Link to={"/feeders/" + feeder.id}>{feeder.name}</Link>
             <h4>Neighborhood: {feeder.neighborhood}</h4>
             {feeder.refill_freq === 1 ? (
                 <h4>Refilled every day</h4>
@@ -31,18 +32,21 @@ function FeederCard({feeder, userID}) {
                 <h4>Number of reviews: {feeder.num_reviews}</h4>
             </>
             ) : (
-            <h4>Be the first to review this feeder!</h4>
+            <>
+                <h4>Average rating: N/A</h4>
+                <h4>Number of reviews: 0</h4>
+            </>
             )}
-            { reviewable ? (
+            {/* { reviewable ? (
             <button onClick={() => setShowReviewForm(true)}>
                 Review this feeder
             </button>
             ) : (
             <h4>You've already reviewed this one!</h4>
             )
-            }
+            } */}
 
-            {showReviewForm && (
+            {/* {showReviewForm && (
                 <div className="modal">
                     <div onClick={() => setShowReviewForm(false)} className="overlay"></div> 
                     <div className="modal-content">
@@ -52,7 +56,7 @@ function FeederCard({feeder, userID}) {
                         />
                     </div>
                 </div>
-            )}
+            )} */}
         </Card>
     )
 }

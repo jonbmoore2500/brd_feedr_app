@@ -7,6 +7,11 @@ class FeedersController < ApplicationController
         render json: feeders
     end
 
+    def show 
+        feeder = Feeder.find_by(id: params[:id])
+        render json: feeder
+    end 
+
     def create
         feeder = Feeder.create(feeder_params)
         if feeder.valid?
@@ -17,10 +22,9 @@ class FeedersController < ApplicationController
     end
 
     def xmany
-        feeders = Feeder.all.filter {|f| f.reviews.length >= params[:num].to_i}
+        feeders = Feeder.all.select {|f| f.reviews.length >= params[:num].to_i}
         render json: feeders
     end
-    # pro tip learn ruby names for methods
 
     private 
 
